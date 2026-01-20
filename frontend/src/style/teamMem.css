@@ -1,0 +1,331 @@
+/* ================= HERO SECTION ================= */
+
+.team-hero {
+  background: linear-gradient(
+    180deg,
+    #0b1426 0%,
+    #0f1e36 45%,
+    #0b1426 100%
+  );
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  padding-top: var(--navbar-height);
+}
+
+.team-hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  align-items: center;
+  gap: 60px;
+}
+
+/* LEFT TEXT */
+.team-hero-left h1 {
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+}
+
+.team-hero-left p {
+  font-size: 18px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 480px;
+}
+
+/* RIGHT CARD */
+.team-hero-card {
+  background: rgba(15, 30, 54, 0.85);
+  backdrop-filter: blur(6px);
+  border-radius: 14px;
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* CARD TEXT */
+.team-card-text h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.team-card-text p {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 360px;
+}
+
+/* ICON CIRCLE */
+.team-card-icon {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #00c2b8, #00a3ff);
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .team-hero-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .team-hero {
+    padding: 60px 0;
+  }
+
+  .team-hero-left h1 {
+    font-size: 34px;
+  }
+}
+
+/* ================= SECTION ================= */
+
+.leaders-section {
+  padding: 80px 20px;
+  background: var(--bg-main);
+  text-align: center;
+}
+
+.leaders-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 70px;
+}
+
+/* GRID */
+.leaders-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 120px;
+  align-items: start;
+}
+
+/* CARD */
+.leader-card {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  height: 520px;
+  border-radius: 14px;
+  overflow: hidden;
+  margin: 0 auto;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.leader-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* OVERLAY (LEFT CARD ONLY) */
+.leader-overlay {
+  position: absolute;
+  bottom: 40px;
+  left: 30px;
+  color: var(--text-primary);
+  text-align: left;
+}
+
+.leader-overlay h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.leader-overlay p {
+  font-size: 16px;
+  color: var(--color-brand);
+  font-weight: 600;
+}
+
+/* SOCIAL ICONS */
+.leader-socials {
+  display: flex;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.leader-socials i {
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--text-primary);
+  transition: transform 0.2s ease;
+}
+
+.leader-socials i:hover {
+  transform: translateY(-2px);
+}
+
+/* INFO BELOW CARD */
+.leader-info {
+  margin-top: 24px;
+}
+
+.leader-info h4 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.leader-info span {
+  display: block;
+  margin-top: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .leaders-container {
+    grid-template-columns: 1fr;
+    gap: 80px;
+  }
+}
+
+/* ===============================
+   TEAM DETAIL CARD (RESPONSIVE)
+   =============================== */
+
+.team-detail-card {
+  margin: 0 auto;
+  max-width: 900px;
+  display: grid;
+  gap: 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px;
+  color: var(--text-primary);
+  text-align: left;
+}
+
+.team-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.team-detail-name {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-brand);
+}
+
+.team-detail-grid {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.team-detail-photo {
+  width: 160px;
+  height: 160px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.team-detail-info {
+  display: grid;
+  gap: 8px;
+}
+
+.team-detail-role {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.team-detail-meta {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 640px) {
+  .team-detail-grid {
+    grid-template-columns: 1fr;
+  }
+  .team-detail-photo {
+    width: 100%;
+    height: auto;
+    max-height: 240px;
+  }
+  .team-detail-name {
+    font-size: 20px;
+  }
+}
+ .advisory-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  align-items: start;
+}
+/* Smaller advisor card */
+.advisory-grid .leader-card {
+  max-width: 260px;
+  height: 320px;
+  margin: 0 auto;
+}
+.advisory-grid .leader-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Advisor text */
+.advisory-grid .leader-info {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.advisory-grid .leader-info h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.advisory-grid .leader-info span {
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--text-secondary);
+}
+.leaders-subtitle {
+  text-align: center;
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin-top: -40px;
+  margin-bottom: 60px;
+}
+@media (max-width: 900px) {
+  .advisory-grid {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+
+  .advisory-grid .leader-card {
+    max-width: 300px;
+    height: 360px;
+  }
+}

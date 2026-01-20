@@ -1,0 +1,203 @@
+/* ================= PAGE ================= */
+.payment-page {
+  min-height: 100vh;
+  background: var(--bg-main); /* ✅ SAME AS BEFORE */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Segoe UI", sans-serif;
+  color: #ffffff;
+}
+
+/* ================= CONTAINER ================= */
+.payment-container {
+  width: 1100px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+}
+
+/* ================= COMMON ================= */
+.section-title {
+  font-size: 30px;
+  font-weight: 600;
+  color: #ffffff;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.section-title .underline {
+  display: block;
+  width: 60px;
+  height: 5px;
+  background: #2cc91d;
+  margin-top: 8px;
+  border-radius: 3px;
+}
+
+/* ================= LEFT ================= */
+.payment-left {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  color: #ffffff;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.brand img {
+  width: 80px;
+}
+
+.brand h2 {
+  font-size: 36px;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.tagline {
+  font-size: 16px;
+  color: #e5e7eb;
+}
+
+/* CONTACT / TERMS */
+.contact h4,
+.terms h4 {
+  font-size: 18px;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.contact p {
+  font-size: 15px;
+  margin: 3px 0;
+  color: #e5e7eb;
+}
+
+.terms p {
+  font-size: 14px;
+  color: #e5e7eb;
+  line-height: 1.5;
+  max-width: 420px;
+}
+
+/* ================= RIGHT ================= */
+.payment-right {
+  display: flex;
+  flex-direction: column;
+  color: #ffffff;
+}
+
+/* ================= STATUS ICONS ================= */
+.status-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  font-size: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.status-icon.success {
+  background: rgba(44, 201, 29, 0.2);
+  color: #2cc91d;
+}
+
+.status-icon.failed {
+  background: rgba(220, 53, 69, 0.2);
+  color: #dc3545;
+}
+
+.status-icon.pending {
+  background: rgba(11, 94, 215, 0.2);
+  color: #0b5ed7;
+}
+
+/* ================= STATUS TEXT ================= */
+.status-message {
+  font-size: 16px;
+  color: #e5e7eb;
+  line-height: 1.6;
+  margin-bottom: 22px;
+}
+
+.transaction-id {
+  font-size: 14px;
+  color: #e5e7eb;
+  margin-bottom: 20px;
+}
+
+.reassurance {
+  font-size: 13px;
+  color: #cbd5f5;
+  margin-top: 16px;
+  max-width: 420px;
+}
+
+/* ================= FORM ================= */
+.payment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.payment-form input {
+  height: 46px;
+  padding: 0 14px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  outline: none;
+  background: #ffffff; /* keep inputs readable */
+  color: #111;
+}
+
+.payment-form input:focus {
+  border-color: #0b5ed7;
+}
+
+/* ================= BUTTON ================= */
+.primary-btn,
+.payment-form button {
+  width: 160px;
+  height: 44px;
+  background: #0b5ed7;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.primary-btn:hover,
+.payment-form button:hover {
+  background: #094aa8;
+  transform: translateY(-1px);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  .payment-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 0 16px;
+  }
+  .payment-left, .payment-right { padding: 0; }
+  .status-icon { width: 56px; height: 56px; font-size: 28px; }
+  .brand img { width: 64px; }
+}
+
+@media (max-width: 480px) {
+  .payment-container { gap: 30px; }
+  .reassurance, .terms p { max-width: 100%; }
+  .section-title { font-size: 20px; }
+  .status-icon { width: 48px; height: 48px; font-size: 22px; }
+}

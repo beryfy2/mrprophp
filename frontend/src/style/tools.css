@@ -1,0 +1,53 @@
+/* Global styles for tool pages */
+
+/* Add padding to the top of the page content to account for fixed navbar */
+.has-fixed-navbar {
+  padding-top: 80px; /* Adjust this value based on your navbar height */
+}
+
+/* Ensure the hero section has proper spacing */
+.calculator-hero {
+  padding: 40px 0 60px;
+  margin-top: -80px; /* Counteract the body padding */
+  padding-top: 120px; /* Add extra padding to the top */
+}
+
+/* Expert Consultation Form */
+.expert-consultation-form {
+  transform: scale(0.85);
+  transform-origin: top right;
+  width: 100%;
+}
+
+.expert-consultation-form .form-input {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+}
+
+.expert-consultation-form h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+.expert-consultation-form button {
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .has-fixed-navbar {
+    padding-top: 70px;
+  }
+  
+  .calculator-hero {
+    padding: 30px 0 40px;
+    margin-top: -70px;
+    padding-top: 100px;
+  }
+  
+  .expert-consultation-form {
+    transform: scale(1);
+    width: 100%;
+  }
+}

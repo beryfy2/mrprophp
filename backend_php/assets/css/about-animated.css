@@ -1,0 +1,74 @@
+
+:root {
+  --shape-color: 255, 255, 255; /* RGB for easier rgba usage */
+  --shape-opacity: 0.12; /* default visible mid-flight opacity */
+  --min-duration: 14s;
+  --max-duration: 30s;
+  --min-size: 40px;
+  --max-size: 260px;
+}
+
+.animated-shapes {
+  position: absolute;
+  inset: 0; /* cover entire hero */
+  overflow: hidden;
+  pointer-events: none; /* do not block interactions */
+  z-index: 1; /* hero content should be z-index:2 or higher */
+}
+
+.animated-shapes .shape {
+  position: absolute;
+  bottom: -30%;
+  left: var(--left, 10%);
+  width: var(--w, 120px);
+  height: var(--h, 120px);
+  background: rgba(var(--shape-color), var(--shape-opacity));
+  opacity: 0;
+  border-radius: 8px; /* change for more rounded look */
+  transform: translateZ(0) rotate(var(--rotate-start, 0deg));
+  will-change: transform, opacity;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  /* animation values are set per-shape via CSS variables */
+  animation: floatUpRotate var(--duration, 20s) linear infinite;
+  animation-delay: var(--delay, 0s);
+  animation-fill-mode: forwards;
+}
+
+/* Keyframes: translate up and rotate 360deg relative to starting rotation */
+@keyframes floatUpRotate {
+  0% {
+    transform: translateY(0) rotate(var(--rotate-start, 0deg));
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--shape-opacity, 0.12);
+  }
+  90% {
+    opacity: var(--shape-opacity, 0.12);
+  }
+  100% {
+    transform: translateY(-220%) rotate(calc(var(--rotate-start, 0deg) + 360deg));
+    opacity: 0;
+  }
+}
+
+/* Example per-shape overrides for a pure-CSS approach. If you prefer pure CSS
+   instead of the JS generator, add a few <span class="shape"></span> elements
+   inside the .animated-shapes container and uncomment/adjust these rules.
+
+   .animated-shapes.pure .shape:nth-child(1) { --w: 220px; --h:220px; --left:6%; --duration:20s; --delay:0s; --rotate-start: -12deg; }
+   .animated-shapes.pure .shape:nth-child(2) { --w: 140px; --h:140px; --left:26%; --duration:16s; --delay:2s; --rotate-start: -6deg; }
+   ...etc
+*/
+
+/* Reduced motion: disable/hide animations for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .animated-shapes { display: none; }
+  .animated-shapes .shape { animation: none !important; opacity: 0.04 !important; }
+}
+
+/* Utility: allow developer to place content above shapes by giving content z-index higher than 1 */
+.hero-content-on-top { position: relative; z-index: 2; }
+
+/* Small helpers to tweak shape visuals quickly */
+.animated-shapes.show-outline .shape { outline: 1px dashed rgba(255,255,255,0.06); }

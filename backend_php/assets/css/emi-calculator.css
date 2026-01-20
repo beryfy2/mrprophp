@@ -1,0 +1,640 @@
+/* ================= PAGE ================= */
+.emi-page {
+  background: var(--bg-secondary);
+}
+
+/* ================= HERO ================= */
+.emi-hero {
+  position: relative;
+  height: 520px;
+  background: url("https://images.unsplash.com/photo-1521791136064-7986c2920216")
+    center / cover no-repeat;
+}
+
+.emi-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8); /* Darker overlay for dark mode compatibility */
+}
+
+.emi-hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  height: 100%;
+  margin: auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  align-items: center;
+  gap: 48px;
+}
+
+/* LEFT */
+.emi-hero-left h1 {
+  color: var(--text-primary);
+  font-size: 44px;
+  font-weight: 800;
+  margin-bottom: 24px;
+}
+
+.emi-hero-left ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 24px;
+}
+
+.emi-hero-left li {
+  color: var(--text-primary);
+  font-size: 16px;
+  margin-bottom: 10px;
+  padding-left: 28px;
+  position: relative;
+}
+
+.emi-hero-left li::before {
+  content: "✔";
+  color: var(--color-brand);
+  position: absolute;
+  left: 0;
+}
+
+/* Rating */
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.rating .google {
+  background: var(--bg-main);
+  color: var(--color-brand);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* RIGHT CARD */
+.consult-card {
+  background: var(--bg-main);
+  padding: 28px;
+  border-radius: 10px;
+  max-width: 360px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--border-color);
+}
+
+.consult-card h3 {
+  color: var(--color-brand);
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+
+.consult-card input {
+  width: 100%;
+  height: 44px;
+  background: var(--bg-main);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0 12px;
+  margin-bottom: 12px;
+}
+
+.consult-card button {
+  width: 100%;
+  height: 46px;
+  background: var(--color-brand);
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ================= EMI CALCULATOR (PIXEL MATCH) ================= */
+
+.emi-main {
+  padding: 80px 0;
+  background: var(--bg-main);
+}
+
+.emi-calculator-layout {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* LEFT */
+.emi-left {
+  padding-right: 40px;
+}
+
+.emi-title {
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--color-brand);
+  margin-bottom: 30px;
+}
+
+.emi-field {
+  margin-bottom: 26px;
+}
+
+.emi-field label {
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: block;
+  color: var(--text-primary);
+}
+
+.emi-input-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.emi-input-row input[type="range"] {
+  flex: 1;
+}
+
+.emi-input-row input[type="number"] {
+  width: 120px;
+  height: 40px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  padding: 0 10px;
+  background: var(--bg-main);
+  color: var(--text-primary);
+}
+
+.emi-suffix {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-secondary);
+}
+
+/* RESULTS */
+.emi-stats {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 28px;
+  column-gap: 40px;
+}
+
+.emi-stats h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.emi-stats p {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-brand);
+}
+
+/* RIGHT */
+.emi-right {
+  display: flex;
+  justify-content: center;
+}
+
+/* =====================================================
+   EMI FORMULA SECTION (DITTO MATCH)
+===================================================== */
+
+.emi-formula-section {
+  background: var(--bg-main);
+  padding: 80px 0;
+}
+
+/* Container */
+.formula-container {
+  max-width: 980px;
+  margin: auto;
+  text-align: left;
+  padding: 0 20px;
+}
+
+/* Heading */
+.formula-container h2 {
+  text-align: center;
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--color-brand);
+  position: relative;
+  margin-bottom: 26px;
+}
+
+/* Green underline */
+.green-underline {
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: var(--color-brand);
+  margin: 12px auto 0;
+}
+
+/* Intro text */
+.formula-intro {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text-primary);
+  margin-bottom: 28px;
+}
+
+/* Formula box */
+.formula-box {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.formula {
+  font-size: 22px;
+  font-family: "Times New Roman", serif;
+  color: var(--text-primary);
+  display: inline-block;
+  line-height: 1.8;
+}
+
+/* Fraction divider */
+.formula-divider {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--text-primary);
+  margin: 6px 0;
+}
+
+/* Where section */
+.formula-where {
+  margin-top: 24px;
+  color: var(--text-primary);
+}
+
+.formula-where strong {
+  font-size: 17px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.formula-where ul {
+  padding-left: 22px;
+}
+
+.formula-where li {
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 6px;
+}
+
+/* Bottom note */
+.formula-note {
+  margin-top: 18px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* =====================================================
+   PU DIVIDER (TOP & BOTTOM)
+===================================================== */
+
+
+/* ================= DONUT ================= */
+
+.donut-wrap {
+  width: 360px;
+  text-align: center;
+}
+
+.donut {
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  position: relative;
+  transition: background 0.6s ease;
+}
+
+.donut::after {
+  content: "";
+  position: absolute;
+  inset: 90px;
+  background: var(--bg-main);
+  border-radius: 50%;
+}
+
+/* Legend */
+.donut-legend {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  margin-top: 22px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.legend-dot.principal {
+  background: var(--color-brand);
+}
+
+.legend-dot.interest {
+  background: var(--text-secondary);
+}
+
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .emi-calculator-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .emi-left {
+    padding-right: 0;
+  }
+}
+
+/* =====================================================
+   GLOBAL
+===================================================== */
+
+.emi-page {
+  background: var(--bg-main);
+  color: var(--text-primary);
+  font-family: "Inter", sans-serif;
+}
+
+/* =====================================================
+   FAQ SECTION (PIXEL PERFECT)
+===================================================== */
+
+/* ================= FAQ SECTION ================= */
+
+.faq-section {
+  background: var(--bg-secondary);
+  padding: 80px 0;
+}
+
+/* Title */
+.faq-title {
+  text-align: center;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--color-brand);
+  margin-bottom: 48px;
+}
+
+/* Wrapper – CENTERED & FULL */
+.faq-wrapper {
+  max-width: 1100px;        /* ✅ FIXED WIDTH */
+  margin: 0 auto;          /* ✅ CENTER */
+  padding: 0 20px;
+}
+
+/* ================= FAQ LIST ================= */
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+/* FAQ CARD */
+.faq-item {
+  width: 100%;
+  background: var(--bg-main);
+  border-radius: 18px;
+  padding: 26px 28px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+}
+
+/* Hover */
+.faq-item:hover {
+  background: var(--bg-secondary);
+  border-color: var(--color-brand);
+  transform: translateY(-2px);
+}
+
+/* Question */
+.faq-question {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-primary);
+  padding-right: 60px; /* space for plus */
+}
+
+/* Plus Icon */
+.faq-plus {
+  position: absolute;
+  top: 50%;
+  right: 22px;
+  transform: translateY(-50%);
+  height: 34px;
+  width: 34px;
+  background: var(--bg-main);
+  color: var(--color-brand);
+  font-size: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  border: 1px solid var(--border-color);
+}
+
+/* Answer */
+.faq-answer {
+  margin-top: 14px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+
+/* ================= EXPERT CARD ================= */
+
+.expert-card {
+  background: var(--bg-main);
+  border-radius: 22px;
+  padding: 42px 32px;
+  text-align: center;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-color);
+}
+
+.expert-card img {
+  width: 180px;
+  margin-bottom: 22px;
+}
+
+.expert-card h3 {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 26px;
+}
+
+.expert-card button {
+  width: 100%;
+  background: var(--color-brand);
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 14px 0;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.expert-card button:hover {
+  background: var(--color-brand-hover);
+}
+
+/* Trust Icons */
+.expert-trust {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 34px;
+}
+
+.expert-trust div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  color: var(--text-primary);
+  gap: 6px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1024px) {
+  .faq-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .expert-card {
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 640px) {
+  .faq-title {
+    font-size: 26px;
+  }
+
+  .faq-question {
+    font-size: 16px;
+  }
+}
+
+/* =====================================================
+   PU DIVIDER
+===================================================== */
+
+.pu-divider {
+  position: relative;
+  margin: 80px 0;
+  border-top: 1px solid var(--border-color);
+}
+
+.pu-divider::after {
+  content: "PU";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-main);
+  padding: 0 12px;
+  color: var(--text-secondary);
+  font-weight: 700;
+}
+
+/* =====================================================
+   CONTENT SECTIONS (TEXT BLOCKS)
+===================================================== */
+
+.content-section {
+  padding: 70px 0;
+}
+
+.content-section h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-brand);
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.content-underline {
+  width: 60px;
+  height: 4px;
+  background: var(--color-brand);
+  margin: 0 auto 30px;
+}
+
+.content-text {
+  max-width: 900px;
+  margin: auto;
+  font-size: 17px;
+  line-height: 1.75;
+  color: var(--text-primary);
+}
+
+.content-text ul {
+  margin-top: 20px;
+  padding-left: 20px;
+}
+
+.content-text li {
+  margin-bottom: 12px;
+}
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1024px) {
+  .faq-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .expert-card {
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 640px) {
+  .faq-title {
+    font-size: 26px;
+  }
+
+  .content-section h2 {
+    font-size: 24px;
+  }
+}

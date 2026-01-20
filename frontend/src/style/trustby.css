@@ -1,0 +1,153 @@
+/* ======================================================
+   TRUSTED BY – WRAPPER
+====================================================== */
+
+.trusted-wrapper {
+    position: relative;
+    width: 100%;
+    padding: 20px 0;
+    overflow: hidden;
+}
+
+/* Fade edges */
+.trusted-wrapper::before,
+.trusted-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.trusted-wrapper::before {
+    left: 0;
+    background: linear-gradient(to right, var(--bg-main) 70%, transparent);
+}
+
+.trusted-wrapper::after {
+    right: 0;
+    background: linear-gradient(to left, var(--bg-main) 70%, transparent);
+}
+
+/* ======================================================
+   MARQUEE ROW
+====================================================== */
+
+.trusted-row-single {
+    display: flex;
+    width: max-content;
+    gap: 1.5rem;
+    animation: trusted-marquee-right 26s linear infinite;
+}
+
+.trusted-row-single:hover {
+    animation-play-state: paused;
+}
+
+.trusted-strip {
+    display: flex;
+    gap: 1.5rem;
+}
+
+/* Right → Left animation */
+@keyframes trusted-marquee-right {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+}
+
+/* ======================================================
+   BRAND ITEM (CARD + NAME)
+====================================================== */
+
+.brand-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ======================================================
+   BRAND CARD (LOGO)
+====================================================== */
+
+.brand-card {
+    min-width: 220px;
+    height: 140px;
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: all 0.25s ease;
+}
+
+.brand-card:hover {
+    border-color: var(--color-brand);
+    box-shadow: 0 16px 28px rgba(0, 0, 0, 0.12);
+}
+
+/* Logo */
+.brand-logo {
+    width: 100%;
+    height: 100%;
+    padding: 18px;
+    object-fit: contain;
+}
+
+/* ======================================================
+   NAME BOX (UNDER CARD)
+====================================================== */
+
+.brand-name-box {
+    width: 100%;
+    max-width: 220px;
+    background: #ffffff;
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    font-size: 14px;
+    font-weight: 500;
+    color: #111827;
+    text-align: center;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ======================================================
+   RESPONSIVE
+====================================================== */
+
+@media (max-width: 768px) {
+
+    .trusted-row-single {
+        animation-duration: 14s;
+    }
+
+    .brand-card {
+        min-width: 150px;
+        height: 100px;
+        border-radius: 14px;
+    }
+
+    .brand-logo {
+        padding: 12px;
+    }
+
+    .brand-name-box {
+        max-width: 150px;
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+
+    .trusted-wrapper::before,
+    .trusted-wrapper::after {
+        width: 30px;
+    }
+}

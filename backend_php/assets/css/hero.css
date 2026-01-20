@@ -1,0 +1,271 @@
+/* ===============================
+   HERO WRAPPER
+================================ */
+.hero-wrapper {
+  position: relative;
+  width: 100vw;
+  margin-left: calc((100vw - 100%) / -2);
+  height: calc(100svh - 72px);
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;   /* 👈 LEFT */
+
+  padding-left: clamp(40px, 8vw, 120px); /* 👈 LEFT OFFSET */
+}
+
+/* ===============================
+   VIDEO BACKGROUND
+================================ */
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1;
+  transform: scale(.99); /* 👈 zoom out */
+
+}
+
+/* ===============================
+   OVERLAY
+================================ */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.75) 35%,
+    rgba(0, 0, 0, 0.35) 65%,
+    rgba(0, 0, 0, 0.15) 100%
+  );
+  z-index: 2;
+}
+
+/* ===============================
+   CONTENT
+================================ */
+.hero-content {
+  position: relative;
+  z-index: 3;
+  max-width: 650px;
+
+  padding: 0;          /* 👈 remove internal centering */
+  margin: 0;           /* 👈 remove auto-centering */
+  text-align: left;    /* 👈 LEFT TEXT */
+}
+
+/* FORCE OVERRIDE PARENT CENTERING */
+.hero-wrapper,
+.hero-wrapper * {
+  text-align: left !important;
+}
+
+.hero-content {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+.hero-tagline {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: #ff3b3b;
+  margin-bottom: 18px;
+  display: inline-block;
+  align-items: left;
+}
+
+.hero-title {
+  font-size: clamp(36px, 4.5vw, 64px);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+
+.hero-title span {
+  color: #0A2540;
+}
+
+.hero-description {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #e5e7eb;
+  max-width: 520px;
+  margin-bottom: 32px;
+}
+
+/* ===============================
+   BUTTONS
+================================ */
+.hero-actions {
+  display: flex;
+  justify-content: flex-start; /* 👈 LEFT */
+}
+
+.hero-btn {
+  padding: 12px 26px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.hero-btn.primary {
+  background: var(--color-brand);
+  color: #fff;
+  font-size: 18px;
+}
+
+.hero-btn.primary:hover {
+  transform: translateY(-2px);
+}
+
+.hero-btn.secondary {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
+  font-size: 15px;
+}
+
+.hero-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ===============================
+   FLOATING ACTION BUTTONS
+================================ */
+.floating-actions {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.float-btn {
+  height: 54px;
+  width: 54px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;     /* ✅ CENTER */
+  justify-content: center; /* ✅ CENTER */
+
+  color: #fff;
+  font-size: 22px;         /* ✅ better icon size */
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+
+.float-btn:hover {
+  transform: scale(1.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+
+.float-btn.call {
+  background: var(--color-brand);
+}
+
+.float-btn.whatsapp {
+  background: #25d366;
+}
+
+/* ===============================
+   MOBILE OPTIMIZATION
+================================ */
+@media (max-width: 768px) {
+
+  /* HERO HEIGHT – balanced, no huge blank space */
+  .hero-wrapper {
+    height: 35svh;
+    align-items: center;
+    padding-bottom: 0;
+  }
+
+  /* VIDEO – zoom OUT */
+  .hero-video {
+    object-fit: contain 
+    ;
+       
+    object-position: center ;
+    transform: scale(1.6); /* 👈 zoom out */
+  }
+
+  /* OVERLAY – better readability */
+  .hero-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.45) 0%,
+      rgba(0, 0, 0, 0.55) 50%,
+      rgba(0, 0, 0, 0.65) 100%
+    );
+  }
+
+  /* CONTENT WIDTH */
+  .hero-content {
+    max-width: 100%;
+    padding: 0 22px;
+    
+  }
+
+  /* TEXT – INCREASED SIZE */
+  .hero-tagline {
+    font-size: 8px;
+    margin-bottom: 1px;
+  }
+
+  .hero-title {
+    font-size: 10px;     /* 👈 bigger & readable */
+    line-height: 1.25;
+    margin-bottom: 1px;
+  }
+
+.hero-description {
+  font-size: 8px;
+  line-height: 1.6;
+ 
+  max-width: 50%;
+  overflow: hidden;
+
+  margin-bottom: 12px;
+}
+
+  /* BUTTONS */
+.hero-actions {
+  gap: 8px;                 /* less spacing */
+}
+
+.hero-btn {
+  padding: 6px 14px;        /* smaller button */
+  font-size: 11px;          /* compact text */
+  border-radius: 999px;
+}
+
+.hero-btn.primary {
+  font-size: 8px;
+}
+
+.hero-btn.secondary {
+  font-size: 8px;
+}
+.float-btn {
+    height: 48px;
+    width: 48px;
+    font-size: 20px;
+  }
+
+  .floating-actions {
+    right: 12px;
+    bottom: 12px;
+    gap: 10px;
+  }
+}

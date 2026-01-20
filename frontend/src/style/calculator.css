@@ -1,0 +1,131 @@
+/* =====================================================
+   FORCE CALCULATOR TO MATCH WEBSITE COLORS
+   (Overrides Tailwind safely)
+   ===================================================== */
+
+/* Page background */
+.calculator-page {
+  background: var(--bg-main);
+}
+
+/* HERO SECTION */
+.calculator-page section:first-of-type {
+  background: var(--bg-secondary) !important;
+}
+
+/* MAIN CALCULATOR CARD */
+.calculator-page .bg-gray-900 {
+  background: var(--bg-secondary) !important;
+}
+
+/* Inner calculator card */
+.calculator-page .rounded-xl,
+.calculator-page .rounded-lg {
+  background: var(--bg-secondary) !important;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+}
+
+/* TEXT COLORS */
+.calculator-page h1,
+.calculator-page h2,
+.calculator-page h3 {
+  color: var(--text-primary) !important;
+}
+
+.calculator-page p,
+.calculator-page span,
+.calculator-page label {
+  color: var(--text-secondary) !important;
+}
+
+/* INPUTS */
+.calculator-page input,
+.calculator-page select {
+  background: var(--bg-main) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.calculator-page input:focus {
+  border-color: var(--color-brand) !important;
+  box-shadow: 0 0 0 3px rgba(0, 124, 130, 0.2);
+}
+
+/* BUTTONS */
+.calculator-page button {
+  background: var(--color-brand) !important;
+  color: #ffffff !important;
+}
+
+.calculator-page button:hover {
+  background: var(--color-brand-hover) !important;
+}
+
+/* RESULT BOXES */
+.calculator-page .bg-gray-800 {
+  background: var(--bg-secondary) !important;
+  border: 1px solid var(--border-color);
+}
+
+/* INFO BOX */
+.calculator-page .bg-blue-900 {
+  background: var(--bg-secondary) !important;
+  color: var(--color-brand) !important;
+}
+
+/* FAQ HOVER FIX */
+.calculator-page .hover\:bg-gray-700:hover {
+  background: var(--bg-secondary) !important;
+  opacity: 0.9;
+}
+/* ===== FIX: Navbar overlapping hero ===== */
+.has-fixed-navbar {
+  padding-top: 80px; /* height of navbar */
+}
+
+@media (max-width: 768px) {
+  .has-fixed-navbar {
+    padding-top: 64px;
+  }
+}
+/* ===== FIX: Navbar overlapping calculator hero ===== */
+.calculator-hero {
+  padding-top: 96px; /* navbar height */
+  min-height: 320px;
+}
+
+@media (max-width: 768px) {
+  .calculator-hero {
+    padding-top: 72px;
+    min-height: 280px;
+  }
+}
+
+/* =====================================================
+   FORCE SOLID NAVBAR BACKGROUND
+   ===================================================== */
+
+/* Force solid navbar background - override transparent/glass effects */
+.calculator-page [class*="bg-"][class*="#0f4260"] {
+  background: var(--bg-secondary) !important;
+  backdrop-filter: none !important;
+}
+
+.calculator-page .backdrop--md {
+  backdrop-filter: none !important;
+}
+
+/* Additional navbar background override */
+.calculator-page nav,
+.calculator-page .navbar,
+.calculator-page header,
+.calculator-page .site-header {
+  background-color: var(--bg-secondary) !important;
+  backdrop-filter: none !important;
+  opacity: 100 !important;
+}
+
+/* =====================================================
+   END OF CALCULATOR STYLE OVERRIDES
+   ===================================================== */

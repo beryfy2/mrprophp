@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+/* Navbar height variable for consistent spacing */
+:root {
+  --navbar-height: 80px;
+
+  /* Color System */
+  --bg-main: #0A1020;
+  --bg-secondary: #131B2E;
+  --color-brand: #007C82;
+  --color-brand-hover: #00A3AA;
+  --color-accent: #4A4EBB;
+  --text-primary: #E8ECF3;
+  --text-secondary: #A0AEC0;
+  --border-color: #1E293B;
+  --color-success: #10B981;
+  --color-danger: #EF4444;
+  --color-warning: #F59E0B;
+  --bg-hover: #1E293B;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+}
+
+/* ===============================
+  GLOBAL SOLID NAVBAR FIX
+   =============================== */
+
+header,
+.navbar,
+.site-header,
+.main-navbar {
+  background-color: var(--bg-secondary) !important;
+  /* Secondary Background */
+  opacity: 1 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* If navbar is fixed or sticky */
+header,
+.navbar,
+.site-header,
+.main-navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+/* ===============================
+  SOLID NAVBAR (SAFE & SCOPED)
+   =============================== */
+
+/* ONLY target the main website navbar */
+.site-nav,
+.site-nav header,
+.site-nav nav {
+  background-color: var(--bg-secondary) !important;
+  /* Secondary Background */
+  opacity: 1 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Ensure it stays solid on scroll */
+.site-nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+}
