@@ -17,10 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $slug = isset($_POST['slug']) ? $_POST['slug'] : '';
     $order_num = isset($_POST['order_num']) ? $_POST['order_num'] : 0;
 
-    $query = "INSERT INTO titles (name, slug, order_num, nav_item_id) VALUES (:name, :slug, :order_num, :nid)";
+    $query = "INSERT INTO titles (title, nav_item_id, order_num) VALUES (:name, :nid, :order_num)";
     $stmt = $db->prepare($query);
     $stmt->bindParam(':name', $name);
-    $stmt->bindParam(':slug', $slug);
     $stmt->bindParam(':order_num', $order_num);
     $stmt->bindParam(':nid', $nav_item_id);
 
@@ -64,10 +63,6 @@ $pageTitle = 'Add Title';
                         <div class="form-group">
                             <label class="form-label">Name</label>
                             <input type="text" name="name" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Slug</label>
-                            <input type="text" name="slug" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Order Number</label>

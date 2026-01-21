@@ -1,11 +1,9 @@
 <?php
 session_start();
-require_once 'includes/db.php';
+include_once 'includes/db.php';
+requireLogin();
 
-if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
-    header('Location: login.php');
-    exit;
-}
+$db = getDB();
 
 // Handle Status Filter
 $statusFilter = isset($_GET['status']) ? $_GET['status'] : '';
@@ -66,12 +64,8 @@ include 'includes/header.php';
                                 <td>₹<?php echo number_format($payment['amount'], 2); ?></td>
                                 <td>
                                     <span class="badge badge-<?php 
-                                        $statusClasses = [
-                                            'SUCCESS' => 'success',
-                                            'FAILED' => 'danger',
-                                            'PENDING' => 'warning'
-                                        ];
-                                        echo isset($statusClasses[$payment['status']]) ? $statusClasses[$payment['status']] : 'secondary';
+                                        $statusColors = ['SUCCESS' => 'success', 'FAILED' => 'danger', 'PENDING' => 'warning'];
+                                        echo isset($statusColors[$payment['status']]) ? $statusColors[$payment['status']] : 'secondary';
                                     ?>">
                                         <?php echo htmlspecialchars($payment['status']); ?>
                                     </span>
@@ -91,5 +85,5 @@ include 'includes/header.php';
         </div>
     </div>
 </div>
-
-<?php include 'includes/footer.php'; ?>
+</body>
+</html>

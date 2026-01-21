@@ -7,7 +7,7 @@ function login($db) {
     $password = isset($data->password) ? $data->password : '';
     
     // Check against env/hardcoded values first (as in Node.js)
-    $adminEmail = 'beryfy2@gmail.com'; // Should be from env
+    $adminEmail = isset($_ENV['ADMIN_EMAIL']) ? $_ENV['ADMIN_EMAIL'] : 'beryfy2@gmail.com';
     // Simple check for now, replicating Node logic roughly
     
     $isAuthenticated = false;

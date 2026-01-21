@@ -1,14 +1,31 @@
 <?php
-include_once '../lib/auth_middleware.php';
+include_once __DIR__ . '/../lib/auth_middleware.php';
 
 function getEmployees($db) {
-    $query = "SELECT * FROM employees ORDER BY created_at DESC";
-    $stmt = $db->prepare($query);
-    $stmt->execute();
-    $list = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    foreach ($list as &$item) { $item['_id'] = $item['id']; }
-    echo json_encode($list);
-}
+     $query = "SELECT * FROM employees ORDER BY order_num ASC";
+     $stmt = $db->prepare($query);
+     $stmt->execute();
+     $list = $stmt->fetchAll(PDO::FETCH_ASSOC);
+     
+     // Determine base URL
+     $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+     $baseUrl = $protocol . $_SERVER['HTTP_HOST'];
+
+     foreach ($list as &$item) { 
+          $item['_id'] = $item['id']; 
+          // Map photo_url to photo and ensure it is a full URL
+          $photoPath = !empty($item['photo_url']) ? $item['photo_url'] : '';
+          if (!empty($photoPath) && strpos($photoPath, 'http') !== 0) {
+              if (strpos($photoPath, '/') !== 0) {
+                  $photoPath = '/' . $photoPath;
+              }
+              $photoPath = $baseUrl . $photoPath;
+          }
+          $item['photo'] = $photoPath;
+          $item['photo_url'] = $photoPath; // Update original field too just in case
+      }
+     echo json_encode($list);
+ }
 
 function getEmployeeById($db, $id) {
     $query = "SELECT * FROM employees WHERE id = :id";
@@ -18,6 +35,7 @@ function getEmployeeById($db, $id) {
     $item = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($item) {
         $item['_id'] = $item['id'];
+        $item['photo'] = $item['photo_url']; // Map photo_url to photo for frontend compatibility
         echo json_encode($item);
     } else {
         http_response_code(404);
@@ -50,16 +68,24 @@ function createEmployee($db) {
     $stmt->bindParam(':name', $name);
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':position', $position);
-    $stmt->bindParam(':designation', $_POST['designation']);
+    $designation = isset($_POST['designation']) ? $_POST['designation'] : '';
+    $stmt->bindParam(':designation', $designation);
     $stmt->bindParam(':department', $department);
-    $stmt->bindParam(':phone', $_POST['phone']);
+    $phone = isset($_POST['phone']) ? $_POST['phone'] : '';
+    $stmt->bindParam(':phone', $phone);
     $stmt->bindParam(':photo_url', $photoUrl);
-    $stmt->bindParam(':address', $_POST['address']);
-    $stmt->bindParam(':bio', $_POST['bio']);
-    $stmt->bindParam(':dob', $_POST['dob']);
-    $stmt->bindParam(':join_date', $_POST['joinDate']); 
-    $stmt->bindParam(':manager', $_POST['manager']);
-    $stmt->bindParam(':salary', $_POST['salary']);
+    $address = isset($_POST['address']) ? $_POST['address'] : '';
+    $stmt->bindParam(':address', $address);
+    $bio = isset($_POST['bio']) ? $_POST['bio'] : '';
+    $stmt->bindParam(':bio', $bio);
+    $dob = isset($_POST['dob']) ? $_POST['dob'] : null;
+    $stmt->bindParam(':dob', $dob);
+    $joinDate = isset($_POST['joinDate']) ? $_POST['joinDate'] : null;
+    $stmt->bindParam(':join_date', $joinDate); 
+    $manager = isset($_POST['manager']) ? $_POST['manager'] : '';
+    $stmt->bindParam(':manager', $manager);
+    $salary = isset($_POST['salary']) ? $_POST['salary'] : 0;
+    $stmt->bindParam(':salary', $salary);
     
     $isAdvisor = isset($_POST['isAdvisor']) && ($_POST['isAdvisor'] === 'true' || $_POST['isAdvisor'] === '1') ? 1 : 0;
     $stmt->bindParam(':is_advisor', $isAdvisor);

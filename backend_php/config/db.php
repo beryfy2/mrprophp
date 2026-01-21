@@ -8,7 +8,7 @@ class Database {
     public $conn;
 
     public function __construct() {
-        $this->host = isset($_ENV['DB_HOST']) ? $_ENV['DB_HOST'] : 'localhost';
+        $this->host = isset($_ENV['DB_HOST']) ? $_ENV['DB_HOST'] : '127.0.0.1';
         $this->db_name = isset($_ENV['DB_NAME']) ? $_ENV['DB_NAME'] : 'mrpro';
         $this->username = isset($_ENV['DB_USER']) ? $_ENV['DB_USER'] : 'root';
         $this->password = isset($_ENV['DB_PASS']) ? $_ENV['DB_PASS'] : '';

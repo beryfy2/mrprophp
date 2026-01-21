@@ -8,13 +8,13 @@ $db = getDB();
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
     $id = $_POST['delete_id'];
     // Delete photo file if exists (optional but good practice)
-    $stmt = $db->prepare("SELECT photo FROM employees WHERE id = :id");
+    $stmt = $db->prepare("SELECT photo_url FROM employees WHERE id = :id");
     $stmt->bindParam(':id', $id);
     $stmt->execute();
     $emp = $stmt->fetch(PDO::FETCH_ASSOC);
     
-    if ($emp && $emp['photo']) {
-        $filePath = __DIR__ . '/../' . $emp['photo'];
+    if ($emp && $emp['photo_url']) {
+        $filePath = __DIR__ . '/../' . $emp['photo_url'];
         if (file_exists($filePath)) {
             unlink($filePath);
         }
@@ -70,8 +70,8 @@ $pageTitle = 'Employees';
                             <?php foreach ($employees as $emp): ?>
                             <tr>
                                 <td>
-                                    <?php if ($emp['photo']): ?>
-                                        <img src="../<?php echo htmlspecialchars($emp['photo']); ?>" alt="Photo" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                                    <?php if (isset($emp['photo_url']) && $emp['photo_url']): ?>
+                                        <img src="../<?php echo htmlspecialchars($emp['photo_url']); ?>" alt="Photo" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
                                     <?php else: ?>
                                         <span>No Photo</span>
                                     <?php endif; ?>

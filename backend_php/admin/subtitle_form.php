@@ -17,10 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $slug = isset($_POST['slug']) ? $_POST['slug'] : '';
     $order_num = isset($_POST['order_num']) ? $_POST['order_num'] : 0;
 
-    $query = "INSERT INTO subtitles (name, slug, order_num, title_id) VALUES (:name, :slug, :order_num, :tid)";
+    $query = "INSERT INTO subtitles (title, order_num, parent_title_id) VALUES (:name, :order_num, :tid)";
     $stmt = $db->prepare($query);
     $stmt->bindParam(':name', $name);
-    $stmt->bindParam(':slug', $slug);
     $stmt->bindParam(':order_num', $order_num);
     $stmt->bindParam(':tid', $title_id);
 
@@ -64,10 +63,6 @@ $pageTitle = 'Add Subtitle';
                         <div class="form-group">
                             <label class="form-label">Name</label>
                             <input type="text" name="name" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Slug</label>
-                            <input type="text" name="slug" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Order Number</label>

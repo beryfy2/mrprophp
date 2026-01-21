@@ -6,7 +6,7 @@ $db = getDB();
 
 // Fetch counts
 $counts = [];
-$tables = ['employees', 'media', 'achievements', 'works', 'enquiries', 'jobs'];
+$tables = ['employees', 'media', 'achievements', 'works', 'enquiries', 'jobs', 'payments'];
 foreach ($tables as $table) {
     $stmt = $db->query("SELECT COUNT(*) FROM $table");
     $counts[$table] = $stmt->fetchColumn();

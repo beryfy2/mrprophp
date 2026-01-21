@@ -1,5 +1,5 @@
 <?php
-include_once '../lib/auth_middleware.php';
+include_once __DIR__ . '/../lib/auth_middleware.php';
 
 function getNavItems($db) {
     // In node: await NavItem.find().sort({ order: 1 });
@@ -8,7 +8,39 @@ function getNavItems($db) {
     $stmt = $db->prepare($query);
     $stmt->execute();
     $list = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    foreach ($list as &$item) { $item['_id'] = $item['id']; }
+
+    // Populate titles for each nav item to match Node.js structure
+    // Node response: [{_id, name, slug, order, titles: [...]}, ...]
+    foreach ($list as &$item) {
+        $item['_id'] = $item['id'];
+        
+        // Fetch titles for this nav item
+        $queryTitles = "SELECT * FROM titles WHERE nav_item_id = :id ORDER BY order_num ASC";
+        $stmtTitles = $db->prepare($queryTitles);
+        $stmtTitles->bindParam(':id', $item['id']);
+        $stmtTitles->execute();
+        $titles = $stmtTitles->fetchAll(PDO::FETCH_ASSOC);
+        
+        // Map _id for titles as well
+        foreach ($titles as &$title) {
+            $title['_id'] = $title['id'];
+            
+            // Fetch subtitles for this title
+            $querySubtitles = "SELECT * FROM subtitles WHERE parent_title_id = :tid ORDER BY order_num ASC";
+            $stmtSub = $db->prepare($querySubtitles);
+            $stmtSub->bindParam(':tid', $title['id']);
+            $stmtSub->execute();
+            $subtitles = $stmtSub->fetchAll(PDO::FETCH_ASSOC);
+            
+            foreach ($subtitles as &$sub) {
+                $sub['_id'] = $sub['id'];
+            }
+            $title['subtitles'] = $subtitles;
+        }
+        
+        $item['titles'] = $titles;
+    }
+    
     echo json_encode($list);
 }
 

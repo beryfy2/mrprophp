@@ -11,11 +11,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $isAuthenticated = false;
 
     // Check DB
-    $query = "SELECT * FROM admin_config WHERE email = :email";
-    $stmt = $db->prepare($query);
-    $stmt->bindParam(':email', $email);
-    $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    try {
+        $query = "SELECT * FROM admin_config WHERE email = :email";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        // Table might not exist or DB error. Proceed to fallback.
+        $user = false;
+    }
 
     if ($user) {
         if (password_verify($password, $user['password_hash'])) {

@@ -49,10 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_subtitle'])) {
     $slug = isset($_POST['slug']) ? $_POST['slug'] : '';
     $order_num = isset($_POST['order_num']) ? $_POST['order_num'] : 0;
 
-    $query = "UPDATE subtitles SET name = :name, slug = :slug, order_num = :order_num WHERE id = :id";
+    $query = "UPDATE subtitles SET title = :name, order_num = :order_num WHERE id = :id";
     $stmt = $db->prepare($query);
     $stmt->bindParam(':name', $name);
-    $stmt->bindParam(':slug', $slug);
     $stmt->bindParam(':order_num', $order_num);
     $stmt->bindParam(':id', $id);
     
@@ -77,7 +76,7 @@ if (!$subtitle) {
 $questions = json_decode($subtitle['questions'], true);
 if (!$questions) $questions = [];
 
-$pageTitle = 'Manage Subtitle: ' . $subtitle['name'];
+$pageTitle = 'Manage Subtitle: ' . $subtitle['title'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -96,7 +95,7 @@ $pageTitle = 'Manage Subtitle: ' . $subtitle['name'];
             
             <div class="admin-content">
                 <div class="page-header">
-                    <h1 class="page-title"><?php echo htmlspecialchars($subtitle['name']); ?></h1>
+                    <h1 class="page-title"><?php echo htmlspecialchars($subtitle['title']); ?></h1>
                     <a href="title_detail.php?id=<?php echo $subtitle['parent_title_id']; ?>" class="btn" style="background: #e2e8f0; color: #333;">Back</a>
                 </div>
 
@@ -114,11 +113,7 @@ $pageTitle = 'Manage Subtitle: ' . $subtitle['name'];
                         <div style="display: flex; gap: 20px;">
                             <div class="form-group" style="flex:1;">
                                 <label class="form-label">Name</label>
-                                <input type="text" name="name" class="form-control" required value="<?php echo htmlspecialchars($subtitle['name']); ?>">
-                            </div>
-                            <div class="form-group" style="flex:1;">
-                                <label class="form-label">Slug</label>
-                                <input type="text" name="slug" class="form-control" required value="<?php echo htmlspecialchars(isset($subtitle['slug']) ? $subtitle['slug'] : ''); ?>">
+                                <input type="text" name="name" class="form-control" required value="<?php echo htmlspecialchars($subtitle['title']); ?>">
                             </div>
                             <div class="form-group" style="width: 100px;">
                                 <label class="form-label">Order</label>

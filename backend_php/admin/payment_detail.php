@@ -41,12 +41,8 @@ include 'includes/header.php';
                 <label>Status</label>
                 <div>
                     <span class="badge badge-<?php 
-                        $statusClasses = [
-                            'SUCCESS' => 'success',
-                            'FAILED' => 'danger',
-                            'PENDING' => 'warning'
-                        ];
-                        echo isset($statusClasses[$payment['status']]) ? $statusClasses[$payment['status']] : 'secondary';
+                        $statusColors = ['SUCCESS' => 'success', 'FAILED' => 'danger', 'PENDING' => 'warning'];
+                        echo isset($statusColors[$payment['status']]) ? $statusColors[$payment['status']] : 'secondary';
                     ?>">
                         <?php echo htmlspecialchars($payment['status']); ?>
                     </span>

@@ -1,5 +1,5 @@
 <?php
-include_once '../lib/auth_middleware.php';
+include_once __DIR__ . '/../lib/auth_middleware.php';
 
 function getJobs($db) {
     $query = "SELECT * FROM jobs ORDER BY created_at DESC";

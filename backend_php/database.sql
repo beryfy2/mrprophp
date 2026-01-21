@@ -54,8 +54,8 @@ CREATE TABLE IF NOT EXISTS jobs (
     urgent TINYINT(1) DEFAULT 0,
     experience_level VARCHAR(50),
     location VARCHAR(255),
-    responsibilities JSON,
-    qualifications JSON,
+    responsibilities TEXT,
+    qualifications TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -98,9 +98,9 @@ CREATE TABLE IF NOT EXISTS subtitles (
     title VARCHAR(255) NOT NULL,
     content TEXT,
     price VARCHAR(50),
-    files JSON,
-    questions JSON,
-    faqs JSON,
+    files TEXT,
+    questions TEXT,
+    faqs TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (parent_title_id) REFERENCES titles(id) ON DELETE CASCADE
@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS payments (
     address TEXT,
     amount DECIMAL(10, 2),
     status ENUM('INITIATED', 'SUCCESS', 'FAILED', 'PENDING') DEFAULT 'INITIATED',
-    phonepe_response JSON,
+    phonepe_response TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

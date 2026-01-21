@@ -1,5 +1,9 @@
 <?php
 include_once __DIR__ . '/../config/cors.php';
+include_once __DIR__ . '/../lib/env_loader.php';
+// Load env
+loadEnv(__DIR__ . '/../.env');
+
 include_once __DIR__ . '/../config/db.php';
 
 // Helper function to send JSON response
@@ -119,17 +123,17 @@ if (preg_match('#/api/kpis$#', $path)) {
 } elseif (preg_match('#/api/phonepe/callback$#', $path)) {
     include __DIR__ . '/phonepe.php';
     if ($method == 'POST') handleCallback($db);
-} elseif (preg_match('#/api/nav-items$#', $path)) {
+} elseif (preg_match('#/api/nav[-_]items$#', $path)) {
     include __DIR__ . '/nav_items.php';
     if ($method == 'GET') getNavItems($db);
     elseif ($method == 'POST') createNavItem($db);
-} elseif (preg_match('#/api/nav-items/(\d+)$#', $path, $matches)) {
+} elseif (preg_match('#/api/nav[-_]items/(\d+)$#', $path, $matches)) {
     include __DIR__ . '/nav_items.php';
     $id = $matches[1];
     if ($method == 'GET') getNavItemById($db, $id);
     elseif ($method == 'PUT') updateNavItem($db, $id);
     elseif ($method == 'DELETE') deleteNavItem($db, $id);
-} elseif (preg_match('#/api/nav-items/(\d+)/titles$#', $path, $matches)) {
+} elseif (preg_match('#/api/nav[-_]items/(\d+)/titles$#', $path, $matches)) {
     include __DIR__ . '/nav_items.php';
     $id = $matches[1];
     if ($method == 'GET') getTitlesByNavItem($db, $id);

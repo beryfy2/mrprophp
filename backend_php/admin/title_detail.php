@@ -15,13 +15,11 @@ $success = '';
 // Update Title
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_title'])) {
     $name = isset($_POST['name']) ? $_POST['name'] : '';
-    $slug = isset($_POST['slug']) ? $_POST['slug'] : '';
     $order_num = isset($_POST['order_num']) ? $_POST['order_num'] : 0;
 
-    $query = "UPDATE titles SET name = :name, slug = :slug, order_num = :order_num WHERE id = :id";
+    $query = "UPDATE titles SET title = :name, order_num = :order_num WHERE id = :id";
     $stmt = $db->prepare($query);
     $stmt->bindParam(':name', $name);
-    $stmt->bindParam(':slug', $slug);
     $stmt->bindParam(':order_num', $order_num);
     $stmt->bindParam(':id', $id);
     
@@ -53,12 +51,12 @@ if (!$title) {
 }
 
 // Fetch Subtitles
-$stmt = $db->prepare("SELECT * FROM subtitles WHERE title_id = :id ORDER BY order_num ASC");
+$stmt = $db->prepare("SELECT * FROM subtitles WHERE parent_title_id = :id ORDER BY order_num ASC");
 $stmt->bindParam(':id', $id);
 $stmt->execute();
 $subtitles = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$pageTitle = 'Manage Title: ' . $title['name'];
+$pageTitle = 'Manage Title: ' . $title['title'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,7 +75,7 @@ $pageTitle = 'Manage Title: ' . $title['name'];
             
             <div class="admin-content">
                 <div class="page-header">
-                    <h1 class="page-title"><?php echo htmlspecialchars($title['name']); ?></h1>
+                    <h1 class="page-title"><?php echo htmlspecialchars($title['title']); ?></h1>
                     <a href="nav_item_detail.php?id=<?php echo $title['nav_item_id']; ?>" class="btn" style="background: #e2e8f0; color: #333;">Back</a>
                 </div>
 
@@ -95,11 +93,7 @@ $pageTitle = 'Manage Title: ' . $title['name'];
                         <div style="display: flex; gap: 20px;">
                             <div class="form-group" style="flex:1;">
                                 <label class="form-label">Name</label>
-                                <input type="text" name="name" class="form-control" required value="<?php echo htmlspecialchars($title['name']); ?>">
-                            </div>
-                            <div class="form-group" style="flex:1;">
-                                <label class="form-label">Slug</label>
-                                <input type="text" name="slug" class="form-control" required value="<?php echo htmlspecialchars($title['slug']); ?>">
+                                <input type="text" name="name" class="form-control" required value="<?php echo htmlspecialchars($title['title']); ?>">
                             </div>
                             <div class="form-group" style="width: 100px;">
                                 <label class="form-label">Order</label>
@@ -120,7 +114,6 @@ $pageTitle = 'Manage Title: ' . $title['name'];
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Slug</th>
                                 <th>Order</th>
                                 <th>Actions</th>
                             </tr>
@@ -128,8 +121,7 @@ $pageTitle = 'Manage Title: ' . $title['name'];
                         <tbody>
                             <?php foreach ($subtitles as $s): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($s['name']); ?></td>
-                                <td><?php echo htmlspecialchars($s['slug']); ?></td>
+                                <td><?php echo htmlspecialchars($s['title']); ?></td>
                                 <td><?php echo htmlspecialchars($s['order_num']); ?></td>
                                 <td>
                                     <a href="subtitle_detail.php?id=<?php echo $s['id']; ?>" class="action-btn btn-edit">Manage</a>

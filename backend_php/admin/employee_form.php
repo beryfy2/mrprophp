@@ -4,7 +4,7 @@ requireLogin();
 
 $db = getDB();
 $id = isset($_GET['id']) ? $_GET['id'] : null;
-$employee = ['name' => '', 'designation' => '', 'bio' => '', 'order_num' => 0, 'photo' => ''];
+$employee = ['name' => '', 'designation' => '', 'bio' => '', 'order_num' => 0, 'photo_url' => ''];
 $error = '';
 
 if ($id) {
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $order_num = isset($_POST['order_num']) ? $_POST['order_num'] : 0;
     
     // Handle Photo Upload
-    $photoPath = $employee['photo'];
+    $photoPath = isset($employee['photo_url']) ? $employee['photo_url'] : '';
     
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {
         $uploadDir = '../uploads/';
@@ -47,12 +47,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($id) {
         // Update
-        $query = "UPDATE employees SET name = :name, designation = :designation, bio = :bio, order_num = :order_num, photo = :photo WHERE id = :id";
+        $query = "UPDATE employees SET name = :name, designation = :designation, bio = :bio, order_num = :order_num, photo_url = :photo WHERE id = :id";
         $stmt = $db->prepare($query);
         $stmt->bindParam(':id', $id);
     } else {
         // Insert
-        $query = "INSERT INTO employees (name, designation, bio, order_num, photo) VALUES (:name, :designation, :bio, :order_num, :photo)";
+        $query = "INSERT INTO employees (name, designation, bio, order_num, photo_url) VALUES (:name, :designation, :bio, :order_num, :photo)";
         $stmt = $db->prepare($query);
     }
 
@@ -117,9 +117,9 @@ $pageTitle = $id ? 'Edit Employee' : 'Add Employee';
                         </div>
                         <div class="form-group">
                             <label class="form-label">Photo</label>
-                            <?php if ($employee['photo']): ?>
+                            <?php if (isset($employee['photo_url']) && $employee['photo_url']): ?>
                                 <div style="margin-bottom: 10px;">
-                                    <img src="../<?php echo htmlspecialchars($employee['photo']); ?>" alt="Current Photo" style="width: 100px; border-radius: 8px;">
+                                    <img src="../<?php echo htmlspecialchars($employee['photo_url']); ?>" alt="Current Photo" style="width: 100px; border-radius: 8px;">
                                 </div>
                             <?php endif; ?>
                             <input type="file" name="photo" class="form-control" accept="image/*">

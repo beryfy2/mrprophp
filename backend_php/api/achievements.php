@@ -1,5 +1,5 @@
 <?php
-include_once '../lib/auth_middleware.php';
+include_once __DIR__ . '/../lib/auth_middleware.php';
 
 function getAchievements($db) {
     // Public? Node server: app.get('/api/achievements', ...) is public?
@@ -10,8 +10,24 @@ function getAchievements($db) {
     $stmt = $db->prepare($query);
     $stmt->execute();
     $list = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    foreach ($list as &$item) { $item['_id'] = $item['id']; }
-    echo json_encode($list);
+    
+    // Determine base URL
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+    $baseUrl = $protocol . $_SERVER['HTTP_HOST'];
+
+    $mappedList = array_map(function($item) use ($baseUrl) {
+         $item['_id'] = $item['id'];
+         if (!empty($item['photo']) && strpos($item['photo'], 'http') !== 0) {
+             $photoPath = $item['photo'];
+             if (strpos($photoPath, '/') !== 0) {
+                 $photoPath = '/' . $photoPath;
+             }
+             $item['photo'] = $baseUrl . $photoPath;
+         }
+         return $item;
+     }, $list);
+
+    echo json_encode($mappedList);
 }
 
 function getAchievementById($db, $id) {
