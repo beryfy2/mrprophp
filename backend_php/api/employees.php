@@ -19,6 +19,11 @@ function getEmployees($db) {
               if (strpos($photoPath, '/') !== 0) {
                   $photoPath = '/' . $photoPath;
               }
+              // Encode filename to handle spaces/special chars
+              $parts = explode('/', $photoPath);
+              $filename = array_pop($parts);
+              $photoPath = implode('/', $parts) . '/' . rawurlencode($filename);
+              
               $photoPath = $baseUrl . $photoPath;
           }
           $item['photo'] = $photoPath;
@@ -35,7 +40,26 @@ function getEmployeeById($db, $id) {
     $item = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($item) {
         $item['_id'] = $item['id'];
-        $item['photo'] = $item['photo_url']; // Map photo_url to photo for frontend compatibility
+        
+        // Fix photo URL for single employee
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+        $baseUrl = $protocol . $_SERVER['HTTP_HOST'];
+        
+        $photoPath = !empty($item['photo_url']) ? $item['photo_url'] : '';
+        if (!empty($photoPath) && strpos($photoPath, 'http') !== 0) {
+            if (strpos($photoPath, '/') !== 0) {
+                $photoPath = '/' . $photoPath;
+            }
+            // Encode filename to handle spaces/special chars
+            $parts = explode('/', $photoPath);
+            $filename = array_pop($parts);
+            $photoPath = implode('/', $parts) . '/' . rawurlencode($filename);
+            
+            $photoPath = $baseUrl . $photoPath;
+        }
+        $item['photo'] = $photoPath; // Map photo_url to photo for frontend compatibility
+        $item['photo_url'] = $photoPath;
+        
         echo json_encode($item);
     } else {
         http_response_code(404);
@@ -131,7 +155,7 @@ function updateEmployee($db, $id) {
     $photoUrl = null;
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
         $uploadDir = '../uploads/';
-        $filename = time() . '-' . basename($_FILES['photo']['name']);
+        $filename = time() . '-' . preg_replace('/[^a-zA-Z0-9._-]/', '_', basename($_FILES['photo']['name']));
         $targetFile = $uploadDir . $filename;
         if (move_uploaded_file($_FILES['photo']['tmp_name'], $targetFile)) {
             $photoUrl = '/uploads/' . $filename;

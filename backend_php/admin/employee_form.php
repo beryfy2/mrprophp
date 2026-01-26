@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $uploadDir = '../uploads/';
         if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
         
-        $filename = time() . '-' . basename($_FILES['photo']['name']);
+        $filename = time() . '-' . preg_replace('/[^a-zA-Z0-9._-]/', '_', basename($_FILES['photo']['name']));
         $targetFile = $uploadDir . $filename;
         
         if (move_uploaded_file($_FILES['photo']['tmp_name'], $targetFile)) {

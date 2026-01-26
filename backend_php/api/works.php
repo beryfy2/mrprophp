@@ -92,7 +92,7 @@ function updateWork($db, $id) {
     $photoUrl = null;
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] == 0) {
         $uploadDir = '../uploads/';
-        $filename = time() . '-' . basename($_FILES['photo']['name']);
+        $filename = time() . '-' . preg_replace('/[^a-zA-Z0-9._-]/', '_', basename($_FILES['photo']['name']));
         $targetFile = $uploadDir . $filename;
         if (move_uploaded_file($_FILES['photo']['tmp_name'], $targetFile)) {
             $photoUrl = '/uploads/' . $filename;

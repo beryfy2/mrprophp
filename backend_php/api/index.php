@@ -100,6 +100,9 @@ if (preg_match('#/api/kpis$#', $path)) {
     include __DIR__ . '/works.php';
     if ($method == 'GET') getWorks($db);
     elseif ($method == 'POST') createWork($db);
+} elseif (preg_match('#/api/public/works$#', $path)) {
+    include __DIR__ . '/works.php';
+    getWorks($db);
 } elseif (preg_match('#/api/works/(\d+)$#', $path, $matches)) {
     include __DIR__ . '/works.php';
     $id = $matches[1];
