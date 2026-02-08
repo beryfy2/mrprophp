@@ -1,5 +1,5 @@
 <?php
-include_once '../lib/jwt_helper.php';
+include_once __DIR__ . '/../lib/jwt_helper.php';
 
 function login($db) {
     $data = json_decode(file_get_contents("php://input"));

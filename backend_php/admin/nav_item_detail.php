@@ -119,8 +119,7 @@ $pageTitle = 'Manage: ' . $item['name'];
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Slug</th>
+                                <th>Title</th>
                                 <th>Order</th>
                                 <th>Actions</th>
                             </tr>
@@ -128,8 +127,7 @@ $pageTitle = 'Manage: ' . $item['name'];
                         <tbody>
                             <?php foreach ($titles as $t): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($t['name']); ?></td>
-                                <td><?php echo htmlspecialchars($t['slug']); ?></td>
+                                <td><?php echo htmlspecialchars($t['title']); ?></td>
                                 <td><?php echo htmlspecialchars($t['order_num']); ?></td>
                                 <td>
                                     <a href="title_detail.php?id=<?php echo $t['id']; ?>" class="action-btn btn-edit">Manage</a>
