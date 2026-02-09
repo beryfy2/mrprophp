@@ -1,5 +1,5 @@
 <?php
-include_once '../lib/auth_middleware.php';
+include_once __DIR__ . '/../lib/auth_middleware.php';
 
 function getTitleById($db, $id) {
     $query = "SELECT * FROM titles WHERE id = :id";
@@ -68,6 +68,7 @@ function getSubtitlesByTitle($db, $titleId) {
     
     // Parse JSON fields
     foreach ($list as &$item) {
+        $item['_id'] = $item['id'];
         if ($item['files']) $item['files'] = json_decode($item['files'], true);
         if ($item['questions']) $item['questions'] = json_decode($item['questions'], true);
         if ($item['faqs']) $item['faqs'] = json_decode($item['faqs'], true);

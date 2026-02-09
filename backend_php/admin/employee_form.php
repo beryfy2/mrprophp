@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = isset($_POST['name']) ? $_POST['name'] : '';
     $designation = isset($_POST['designation']) ? $_POST['designation'] : '';
     $bio = isset($_POST['bio']) ? $_POST['bio'] : '';
-    $order_num = isset($_POST['order_num']) ? $_POST['order_num'] : 0;
+    // $order_num = isset($_POST['order_num']) ? $_POST['order_num'] : 0; // Removed manual input
     
     // Handle Photo Upload
     $photoPath = isset($employee['photo_url']) ? $employee['photo_url'] : '';
@@ -46,20 +46,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($id) {
-        // Update
-        $query = "UPDATE employees SET name = :name, designation = :designation, bio = :bio, order_num = :order_num, photo_url = :photo WHERE id = :id";
+        // Update - Preserve existing order_num
+        $query = "UPDATE employees SET name = :name, designation = :designation, bio = :bio, photo_url = :photo WHERE id = :id";
         $stmt = $db->prepare($query);
         $stmt->bindParam(':id', $id);
     } else {
-        // Insert
+        // Insert - Auto calculate order_num
+        $stmt = $db->query("SELECT MAX(order_num) as max_order FROM employees");
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $order_num = ($row && $row['max_order'] !== null) ? $row['max_order'] + 1 : 1;
+
         $query = "INSERT INTO employees (name, designation, bio, order_num, photo_url) VALUES (:name, :designation, :bio, :order_num, :photo)";
         $stmt = $db->prepare($query);
+        $stmt->bindParam(':order_num', $order_num);
     }
 
     $stmt->bindParam(':name', $name);
     $stmt->bindParam(':designation', $designation);
     $stmt->bindParam(':bio', $bio);
-    $stmt->bindParam(':order_num', $order_num);
+    // $stmt->bindParam(':order_num', $order_num); // Only for insert
     $stmt->bindParam(':photo', $photoPath);
 
     if ($stmt->execute()) {
@@ -111,10 +116,7 @@ $pageTitle = $id ? 'Edit Employee' : 'Add Employee';
                             <label class="form-label">Bio</label>
                             <textarea name="bio" class="form-control" rows="4"><?php echo htmlspecialchars($employee['bio']); ?></textarea>
                         </div>
-                        <div class="form-group">
-                            <label class="form-label">Order Number</label>
-                            <input type="number" name="order_num" class="form-control" value="<?php echo htmlspecialchars($employee['order_num']); ?>">
-                        </div>
+                        <!-- Order Number is auto-calculated -->
                         <div class="form-group">
                             <label class="form-label">Photo</label>
                             <?php if (isset($employee['photo_url']) && $employee['photo_url']): ?>

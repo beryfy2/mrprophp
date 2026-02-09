@@ -5,6 +5,7 @@ requireLogin();
 $db = getDB();
 $subtitle_id = isset($_GET['subtitle_id']) ? $_GET['subtitle_id'] : null;
 $index = isset($_GET['index']) ? (int)$_GET['index'] : null;
+$type = isset($_GET['type']) ? $_GET['type'] : 'questions'; // 'questions' or 'faqs'
 
 if (!$subtitle_id) {
     header('Location: nav_items.php');
@@ -22,7 +23,7 @@ if (!$subtitle) {
     exit();
 }
 
-$questions = json_decode($subtitle['questions'], true);
+$questions = isset($subtitle[$type]) ? json_decode($subtitle[$type], true) : [];
 if (!$questions) $questions = [];
 $question = null;
 
@@ -33,6 +34,7 @@ if ($index !== null && isset($questions[$index])) {
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // $q_number = isset($_POST['q_number']) ? $_POST['q_number'] : ''; // Removed manual order
     $q_text = isset($_POST['question']) ? $_POST['question'] : '';
     $a_text = isset($_POST['answer']) ? $_POST['answer'] : '';
     $format = isset($_POST['format']) ? $_POST['format'] : 'written';
@@ -61,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     $newQuestion = [
+        // 'q_number' => $q_number,
         'question' => $q_text,
         'answer' => $a_text,
         'format' => $format,
@@ -75,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     $json = json_encode($questions);
-    $update = $db->prepare("UPDATE subtitles SET questions = :json WHERE id = :id");
+    $update = $db->prepare("UPDATE subtitles SET $type = :json WHERE id = :id");
     $update->bindParam(':json', $json);
     $update->bindParam(':id', $subtitle_id);
     
@@ -87,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$pageTitle = ($index !== null ? 'Edit Question' : 'Add Question') . ' - ' . $subtitle['name'];
+$pageTitle = ($index !== null ? 'Edit ' . ($type === 'faqs' ? 'FAQ' : 'Question') : 'Add ' . ($type === 'faqs' ? 'FAQ' : 'Question')) . ' - ' . $subtitle['title'];
 
 // Prepare table data for form
 $table_headers = '';

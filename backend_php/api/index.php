@@ -90,6 +90,9 @@ if (preg_match('#/api/kpis$#', $path)) {
     include __DIR__ . '/achievements.php';
     if ($method == 'GET') getAchievements($db);
     elseif ($method == 'POST') createAchievement($db);
+} elseif (preg_match('#/api/public/achievements$#', $path)) {
+    include __DIR__ . '/achievements.php';
+    getAchievements($db);
 } elseif (preg_match('#/api/achievements/(\d+)$#', $path, $matches)) {
     include __DIR__ . '/achievements.php';
     $id = $matches[1];
@@ -103,6 +106,10 @@ if (preg_match('#/api/kpis$#', $path)) {
 } elseif (preg_match('#/api/public/works$#', $path)) {
     include __DIR__ . '/works.php';
     getWorks($db);
+} elseif (preg_match('#/api/public/works/(\d+)$#', $path, $matches)) {
+    include __DIR__ . '/works.php';
+    $id = $matches[1];
+    getWorkById($db, $id);
 } elseif (preg_match('#/api/works/(\d+)$#', $path, $matches)) {
     include __DIR__ . '/works.php';
     $id = $matches[1];
@@ -179,6 +186,10 @@ if (preg_match('#/api/kpis$#', $path)) {
     $qIdx = $matches[2];
     $fileId = $matches[3];
     if ($method == 'DELETE') deleteQuestionFile($db, $id, $qIdx, $fileId);
+} elseif (preg_match('#/api/subtitles/by-slug/([^/]+)$#', $path, $matches)) {
+    include __DIR__ . '/subtitles.php';
+    $slug = $matches[1];
+    if ($method == 'GET') getSubtitleBySlug($db, $slug);
 } elseif (preg_match('#/api/public/subtitles/([^/]+)$#', $path, $matches)) {
     include __DIR__ . '/subtitles.php';
     $slug = $matches[1];

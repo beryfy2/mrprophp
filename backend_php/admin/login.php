@@ -69,6 +69,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label class="form-label">Password</label>
                 <input type="password" name="password" class="form-control" required>
             </div>
+            <div style="text-align: right; margin-bottom: 15px;">
+                <a href="send_reset_otp.php" style="color: #666; font-size: 14px; text-decoration: none;">Forgot Password?</a>
+            </div>
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
     </div>

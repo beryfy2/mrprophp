@@ -35,6 +35,19 @@ function getWorkById($db, $id) {
     $item = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($item) {
         $item['_id'] = $item['id'];
+
+        // Normalize Photo URL
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+        $baseUrl = $protocol . $_SERVER['HTTP_HOST'];
+        
+        if (!empty($item['photo']) && strpos($item['photo'], 'http') !== 0) {
+            $photoPath = $item['photo'];
+            if (strpos($photoPath, '/') !== 0) {
+                $photoPath = '/' . $photoPath;
+            }
+            $item['photo'] = $baseUrl . $photoPath;
+        }
+
         echo json_encode($item);
     } else {
         http_response_code(404);

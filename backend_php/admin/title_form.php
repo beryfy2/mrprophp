@@ -14,8 +14,13 @@ $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = isset($_POST['name']) ? $_POST['name'] : '';
-    $slug = isset($_POST['slug']) ? $_POST['slug'] : '';
-    $order_num = isset($_POST['order_num']) ? $_POST['order_num'] : 0;
+    
+    // Auto-calculate order number
+    $stmt = $db->prepare("SELECT MAX(order_num) as max_order FROM titles WHERE nav_item_id = :nid");
+    $stmt->bindParam(':nid', $nav_item_id);
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $order_num = ($row && $row['max_order'] !== null) ? $row['max_order'] + 1 : 1;
 
     $query = "INSERT INTO titles (title, nav_item_id, order_num) VALUES (:name, :nid, :order_num)";
     $stmt = $db->prepare($query);
@@ -64,10 +69,7 @@ $pageTitle = 'Add Title';
                             <label class="form-label">Name</label>
                             <input type="text" name="name" class="form-control" required>
                         </div>
-                        <div class="form-group">
-                            <label class="form-label">Order Number</label>
-                            <input type="number" name="order_num" class="form-control" value="0">
-                        </div>
+                        <!-- Order Number is auto-calculated -->
                         <button type="submit" class="btn btn-primary">Create Title</button>
                     </form>
                 </div>

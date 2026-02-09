@@ -7,8 +7,13 @@ $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = isset($_POST['name']) ? $_POST['name'] : '';
-    $slug = isset($_POST['slug']) ? $_POST['slug'] : '';
-    $order_num = isset($_POST['order_num']) ? $_POST['order_num'] : 0;
+    // Auto-generate slug from name
+    $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $name)));
+    
+    // Auto-calculate order number
+    $stmt = $db->query("SELECT MAX(order_num) as max_order FROM nav_items");
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $order_num = ($row && $row['max_order'] !== null) ? $row['max_order'] + 1 : 1;
 
     $query = "INSERT INTO nav_items (name, slug, order_num) VALUES (:name, :slug, :order_num)";
     $stmt = $db->prepare($query);
@@ -57,14 +62,8 @@ $pageTitle = 'Add Navigation Item';
                             <label class="form-label">Name</label>
                             <input type="text" name="name" class="form-control" required>
                         </div>
-                        <div class="form-group">
-                            <label class="form-label">Slug</label>
-                            <input type="text" name="slug" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Order Number</label>
-                            <input type="number" name="order_num" class="form-control" value="0">
-                        </div>
+                        <!-- Slug is auto-generated from name -->
+                        <!-- Order Number is auto-calculated -->
                         <button type="submit" class="btn btn-primary">Create Item</button>
                     </form>
                 </div>

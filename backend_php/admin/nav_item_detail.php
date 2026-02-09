@@ -15,7 +15,8 @@ $success = '';
 // Handle Nav Item Update
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_item'])) {
     $name = isset($_POST['name']) ? $_POST['name'] : '';
-    $slug = isset($_POST['slug']) ? $_POST['slug'] : '';
+    // Auto-generate slug from name
+    $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $name)));
     $order_num = isset($_POST['order_num']) ? $_POST['order_num'] : 0;
 
     $query = "UPDATE nav_items SET name = :name, slug = :slug, order_num = :order_num WHERE id = :id";
@@ -97,10 +98,7 @@ $pageTitle = 'Manage: ' . $item['name'];
                                 <label class="form-label">Name</label>
                                 <input type="text" name="name" class="form-control" required value="<?php echo htmlspecialchars($item['name']); ?>">
                             </div>
-                            <div class="form-group" style="flex:1;">
-                                <label class="form-label">Slug</label>
-                                <input type="text" name="slug" class="form-control" required value="<?php echo htmlspecialchars($item['slug']); ?>">
-                            </div>
+                            <!-- Slug is auto-generated from name -->
                             <div class="form-group" style="width: 100px;">
                                 <label class="form-label">Order</label>
                                 <input type="number" name="order_num" class="form-control" value="<?php echo htmlspecialchars($item['order_num']); ?>">

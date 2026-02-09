@@ -312,7 +312,7 @@ const ServicePage = () => {
             <div className="px-4 py-3">
 
               <h3 className="font-semibold mb-3 text-[23px] text-center">
-                Partnership Deed [Sample]
+                {pdfFiles[activePdfIndex]?.customName || "Partnership Deed [Sample]"}
               </h3>
 
               {/* Tabs */}
@@ -330,8 +330,8 @@ const ServicePage = () => {
                 ) : (
                   pdfFiles.map((f, idx) => {
                     const name =
-                      f.customName ||
                       f.label ||
+                      f.customName ||
                       String(f.filename || "")
                         .split("/")
                         .pop()

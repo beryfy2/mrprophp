@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import NavBar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "../style/achievements.css";
@@ -9,19 +10,26 @@ const BASE_URL = API_BASE.replace("/api", "");
 export default function Achievements() {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`${API_BASE}/public/achievements`)
-      .then((res) => res.json())
-      .then((data) => {
-        setList(Array.isArray(data) ? data : []);
+    axios
+      .get(`${API_BASE}/public/achievements`)
+      .then((res) => {
+        setList(Array.isArray(res.data) ? res.data : []);
         setLoading(false);
       })
       .catch((err) => {
         console.error("Failed to load achievements", err);
+        setError("Failed to load achievements");
         setLoading(false);
       });
   }, []);
+
+  const getImgUrl = (photo) => {
+    if (!photo) return "";
+    return photo.startsWith("http") ? photo : `${BASE_URL}${photo}`;
+  };
 
   return (
     <>
@@ -38,6 +46,10 @@ export default function Achievements() {
         {loading ? (
           <div style={{ textAlign: "center", padding: "40px", color: "#666" }}>
             Loading achievements...
+          </div>
+        ) : error ? (
+          <div style={{ textAlign: "center", padding: "40px", color: "red" }}>
+            {error}
           </div>
         ) : list.length === 0 ? (
           <div style={{ textAlign: "center", padding: "40px", color: "#666" }}>
@@ -66,12 +78,19 @@ export default function Achievements() {
                   >
                     <h3 className="achievement-title">{item.title}</h3>
                   </a>
+                  
+                  {item.content && (
+                    <p style={{ color: "#cbd5e1", marginTop: "8px", fontSize: "14px", lineHeight: "1.5" }}>
+                      {item.content}
+                    </p>
+                  )}
 
                   <a
                     href={item.link}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="read-more"
+                    style={{ display: "inline-block", marginTop: "12px" }}
                   >
                     Read more →
                   </a>
@@ -80,7 +99,7 @@ export default function Achievements() {
                 {/* RIGHT IMAGE */}
                 <div className="achievement-image-wrapper">
                   <img
-                    src={`${BASE_URL}${item.photo}`}
+                    src={getImgUrl(item.photo)}
                     alt={item.title}
                     className="achievement-image"
                   />

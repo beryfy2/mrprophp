@@ -1,5 +1,5 @@
 <?php
-include_once '../lib/auth_middleware.php';
+include_once __DIR__ . '/../lib/auth_middleware.php';
 
 function getSubtitleById($db, $id) {
     $query = "SELECT * FROM subtitles WHERE id = :id";
@@ -110,6 +110,7 @@ function getSubtitleBySlug($db, $slug) {
     foreach ($list as $item) {
         $st = slugifyTitle($item['title']);
         if (in_array($st, $variants)) {
+            $item['_id'] = $item['id'];
             if ($item['files']) $item['files'] = json_decode($item['files'], true);
             if ($item['questions']) $item['questions'] = json_decode($item['questions'], true);
             if ($item['faqs']) $item['faqs'] = json_decode($item['faqs'], true);
