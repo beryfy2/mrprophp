@@ -126,6 +126,7 @@
   position: relative;
   width: 100%;
   max-width: 420px;
+  height: 520px;
   border-radius: 14px;
   overflow: hidden;
   margin: 0 auto;
@@ -135,9 +136,8 @@
 
 .leader-img {
   width: 100%;
-  height: auto;
-  object-fit: contain;
-  display: block;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* OVERLAY (LEFT CARD ONLY) */
