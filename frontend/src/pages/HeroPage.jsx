@@ -46,17 +46,7 @@ export default function HeroPage() {
           </a>
         </div>
       </div>
-
-      {/* Floating Buttons */}
-      <div className="floating-actions">
-        <a href="tel:8800932090" className="float-btn call">
-          <FontAwesomeIcon icon={faPhone} />
-        </a>
-
-        <a href="https://wa.me/918800932090" className="float-btn whatsapp">
-          <FontAwesomeIcon icon={faWhatsapp} />
-        </a>
-      </div>
+    
     </section>
   );
 }
