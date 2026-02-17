@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import ScrollToTop from "./components/ScrollToTop";
 import NavBar from "./components/Navbar";
+import FloatingContactButtons from "./components/FloatingContactButtons";
 
 import Footer from "./components/Footer";
 
@@ -78,6 +79,7 @@ const App = () => {
   return (
     <>
       <ScrollToTop />
+      <FloatingContactButtons />
       <Routes>
         {/* HOME */}
         <Route path="/" element={<Home />} />

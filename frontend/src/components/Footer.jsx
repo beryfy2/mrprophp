@@ -152,7 +152,7 @@ const Footer = () => {
                 className="text-[var(--color-brand)] mt-1"
               />
               <div>
-                <p>SF-1, Reliable City Center, Sector-6</p>
+                <p>SF-1,Reliable City Center,Sector-6</p>
                 <p>Vasundhara, Ghaziabad – 201014</p>
               </div>
             </div>
