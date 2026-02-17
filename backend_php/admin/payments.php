@@ -24,23 +24,67 @@ $payments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 include 'includes/header.php';
 ?>
 
-<div class="main-content">
-    <div class="page-header">
-        <h1>Payments</h1>
-        <div class="header-actions">
-            <select onchange="window.location.href='?status='+this.value" class="form-control" style="width: auto; display: inline-block;">
-                <option value="">All Statuses</option>
-                <option value="SUCCESS" <?php echo $statusFilter === 'SUCCESS' ? 'selected' : ''; ?>>Success</option>
-                <option value="FAILED" <?php echo $statusFilter === 'FAILED' ? 'selected' : ''; ?>>Failed</option>
-                <option value="PENDING" <?php echo $statusFilter === 'PENDING' ? 'selected' : ''; ?>>Pending</option>
-                <option value="INITIATED" <?php echo $statusFilter === 'INITIATED' ? 'selected' : ''; ?>>Initiated</option>
-            </select>
-        </div>
+<div class="main-content-wrapper">
+    <div class="main-content-inner">
+
+        <!-- HEADER -->
+      <div class="page-top">
+
+    <div>
+        <h1 class="page-title">Payments Management</h1>
+        <p class="page-subtitle">Track and manage all transactions</p>
     </div>
 
-    <div class="card">
-        <div class="table-responsive">
-            <table class="table">
+    <div class="header-actions">
+
+        <!-- STATUS FILTER -->
+        <form method="GET">
+            <select name="status" class="status-filter" onchange="this.form.submit()">
+                <option value="">All Status</option>
+                <option value="SUCCESS" <?= $statusFilter === 'SUCCESS' ? 'selected' : '' ?>>Success</option>
+                <option value="FAILED" <?= $statusFilter === 'FAILED' ? 'selected' : '' ?>>Failed</option>
+                <option value="PENDING" <?= $statusFilter === 'PENDING' ? 'selected' : '' ?>>Pending</option>
+                <option value="INITIATED" <?= $statusFilter === 'INITIATED' ? 'selected' : '' ?>>Initiated</option>
+            </select>
+        </form>
+
+        <!-- BACK BUTTON -->
+        <a href="index.php" class="back-btn">
+            ← Back
+        </a>
+
+    </div>
+
+</div>
+
+
+
+        <!-- STATS -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span>Total Payments</span>
+                <h2><?= count($payments) ?></h2>
+            </div>
+
+            <div class="stat-card success">
+                <span>Successful</span>
+                <h2><?= count(array_filter($payments, fn($p) => $p['status'] === 'SUCCESS')) ?></h2>
+            </div>
+
+            <div class="stat-card warning">
+                <span>Pending</span>
+                <h2><?= count(array_filter($payments, fn($p) => $p['status'] === 'PENDING')) ?></h2>
+            </div>
+
+            <div class="stat-card danger">
+                <span>Failed</span>
+                <h2><?= count(array_filter($payments, fn($p) => $p['status'] === 'FAILED')) ?></h2>
+            </div>
+        </div>
+
+        <!-- TABLE -->
+        <div class="card-box">
+            <table class="data-table">
                 <thead>
                     <tr>
                         <th>Date</th>
@@ -48,42 +92,204 @@ include 'includes/header.php';
                         <th>Name</th>
                         <th>Amount</th>
                         <th>Status</th>
-                        <th>Actions</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (count($payments) > 0): ?>
                         <?php foreach ($payments as $payment): ?>
                             <tr>
-                                <td><?php echo date('M d, Y H:i', strtotime($payment['created_at'])); ?></td>
-                                <td><?php echo htmlspecialchars($payment['transaction_id']); ?></td>
+                                <td><?= date('M d, Y H:i', strtotime($payment['created_at'])) ?></td>
+                                <td><?= htmlspecialchars($payment['transaction_id']) ?></td>
                                 <td>
-                                    <?php echo htmlspecialchars($payment['name']); ?><br>
-                                    <small class="text-muted"><?php echo htmlspecialchars($payment['email']); ?></small>
+                                    <?= htmlspecialchars($payment['name']) ?><br>
+                                    <small><?= htmlspecialchars($payment['email']) ?></small>
                                 </td>
-                                <td>₹<?php echo number_format($payment['amount'], 2); ?></td>
+                                <td>₹<?= number_format($payment['amount'], 2) ?></td>
                                 <td>
-                                    <span class="badge badge-<?php 
-                                        $statusColors = ['SUCCESS' => 'success', 'FAILED' => 'danger', 'PENDING' => 'warning'];
-                                        echo isset($statusColors[$payment['status']]) ? $statusColors[$payment['status']] : 'secondary';
-                                    ?>">
-                                        <?php echo htmlspecialchars($payment['status']); ?>
+                                    <?php
+                                    $statusClass = [
+                                        'SUCCESS' => 'badge-success',
+                                        'FAILED'  => 'badge-danger',
+                                        'PENDING' => 'badge-warning',
+                                        'INITIATED' => 'badge-secondary'
+                                    ];
+                                    ?>
+                                    <span class="badge <?= $statusClass[$payment['status']] ?? 'badge-secondary' ?>">
+                                        <?= htmlspecialchars($payment['status']) ?>
                                     </span>
                                 </td>
                                 <td>
-                                    <a href="payment_detail.php?id=<?php echo $payment['id']; ?>" class="action-btn btn-view">View</a>
+                                    <a href="payment_detail.php?id=<?= $payment['id'] ?>" class="btn-view">
+                                        View
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="6" class="text-center">No payments found.</td>
+                            <td colspan="6" class="no-data">No payments found.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
             </table>
         </div>
+
     </div>
 </div>
-</body>
-</html>
+
+<style>
+
+/* PAGE WRAPPER */
+.main-content-wrapper {
+    padding: 30px;
+    background: #f4f6f9;
+    min-height: 100vh;
+}
+
+.main-content-inner {
+    max-width: 1400px;
+    margin: auto;
+}
+
+
+/* HEADER */
+.page-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.page-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #0A2540;
+    margin: 0;
+}
+
+.page-subtitle {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #7a8599;
+}
+
+/* FILTER BUTTON */
+.status-filter {
+    padding: 10px 18px;
+    border-radius: 25px;
+    border: none;
+    background: #0A2540;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+}
+
+.status-filter:hover {
+    background: #021350;
+}
+
+
+/* STATS */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 25px;
+    margin-bottom: 35px;
+}
+
+.stat-card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.stat-card span {
+    font-size: 13px;
+    color: #6c757d;
+}
+
+.stat-card h2 {
+    font-size: 30px;
+    margin-top: 12px;
+    font-weight: 700;
+}
+
+.success h2 { color: #28a745; }
+.warning h2 { color: #f0ad4e; }
+.danger  h2 { color: #dc3545; }
+
+/* TABLE */
+.card-box {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table thead {
+    background: #f1f3f7;
+}
+
+.data-table th {
+    text-align: left;
+    padding: 15px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0A2540;
+}
+
+.data-table td {
+    padding: 15px;
+    border-top: 1px solid #f0f2f5;
+    font-size: 14px;
+}
+
+.data-table tbody tr:hover {
+    background: #f9fbff;
+}
+
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-success { background: #e6f4ea; color: #28a745; }
+.badge-danger  { background: #fdecea; color: #dc3545; }
+.badge-warning { background: #fff3cd; color: #f0ad4e; }
+.badge-secondary { background: #e2e3e5; color: #6c757d; }
+
+.btn-view {
+    background: #0A2540;
+    color: #fff;
+    padding: 7px 14px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.btn-view:hover {
+    background: #1f4fff;
+}
+
+.no-data {
+    text-align: center;
+    padding: 25px;
+    color: #888;
+}
+
+</style>
+
+<?php include 'includes/footer.php'; ?>
