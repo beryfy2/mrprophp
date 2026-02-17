@@ -13,20 +13,31 @@ export default function TeamMem() {
   const team = employees.filter((e) => !e.isAdvisor);
   const advisors = employees.filter((e) => e.isAdvisor);
 
-  useEffect(() => {
-    fetch(`${API_BASE}/employees`)
-      .then((res) => res.json())
-      .then(setEmployees)
-      .catch(() => setEmployees([]));
-  }, []);
+  //useEffect(() => {
+  //  fetch(`${API_BASE}/employees`)
+   //   .then((res) => res.json())
+   //   .then(setEmployees)
+   //   .catch(() => setEmployees([]));
+ // }, []);
+
+ useEffect(() => {
+  fetch(`${API_BASE}/employees`)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("EMPLOYEES DATA:", data);   // 👈 ADD THIS
+      setEmployees(data);
+    })
+    .catch(() => setEmployees([]));
+}, []);
+
 
   function displayPhoto(emp) {
-    return emp.photoUrl
-      ? `${IMG_BASE}${emp.photoUrl}`
-      : `https://i.pravatar.cc/400?u=${encodeURIComponent(
-          emp.email || emp.name
-        )}`;
-  }
+  return emp.photo_url
+    ? `${IMG_BASE}/${emp.photo_url}`
+    : `https://i.pravatar.cc/400?u=${encodeURIComponent(
+        emp.email || emp.name
+      )}`;
+}
 
   function displayRole(emp) {
     return emp.designation || emp.position || "";
