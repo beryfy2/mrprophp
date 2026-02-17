@@ -5,7 +5,6 @@ requireLogin();
 
 $db = getDB();
 
-// Handle Status Filter
 $statusFilter = isset($_GET['status']) ? $_GET['status'] : '';
 $whereClause = "";
 $params = [];
@@ -15,11 +14,26 @@ if ($statusFilter) {
     $params[':status'] = $statusFilter;
 }
 
-// Fetch payments
 $query = "SELECT * FROM payments $whereClause ORDER BY created_at DESC";
 $stmt = $db->prepare($query);
 $stmt->execute($params);
 $payments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$successCount = 0;
+$pendingCount = 0;
+$failedCount = 0;
+
+foreach ($payments as $p) {
+    if (isset($p['status'])) {
+        if ($p['status'] === 'SUCCESS') {
+            $successCount++;
+        } elseif ($p['status'] === 'PENDING') {
+            $pendingCount++;
+        } elseif ($p['status'] === 'FAILED') {
+            $failedCount++;
+        }
+    }
+}
 
 include 'includes/header.php';
 ?>
@@ -68,17 +82,17 @@ include 'includes/header.php';
 
             <div class="stat-card success">
                 <span>Successful</span>
-                <h2><?= count(array_filter($payments, fn($p) => $p['status'] === 'SUCCESS')) ?></h2>
+                <h2><?= $successCount ?></h2>
             </div>
 
             <div class="stat-card warning">
                 <span>Pending</span>
-                <h2><?= count(array_filter($payments, fn($p) => $p['status'] === 'PENDING')) ?></h2>
+                <h2><?= $pendingCount ?></h2>
             </div>
 
             <div class="stat-card danger">
                 <span>Failed</span>
-                <h2><?= count(array_filter($payments, fn($p) => $p['status'] === 'FAILED')) ?></h2>
+                <h2><?= $failedCount ?></h2>
             </div>
         </div>
 
@@ -108,14 +122,17 @@ include 'includes/header.php';
                                 <td>₹<?= number_format($payment['amount'], 2) ?></td>
                                 <td>
                                     <?php
-                                    $statusClass = [
-                                        'SUCCESS' => 'badge-success',
-                                        'FAILED'  => 'badge-danger',
-                                        'PENDING' => 'badge-warning',
+                                    $statusClass = array(
+                                        'SUCCESS'   => 'badge-success',
+                                        'FAILED'    => 'badge-danger',
+                                        'PENDING'   => 'badge-warning',
                                         'INITIATED' => 'badge-secondary'
-                                    ];
+                                    );
+                                    $badgeClass = isset($statusClass[$payment['status']])
+                                        ? $statusClass[$payment['status']]
+                                        : 'badge-secondary';
                                     ?>
-                                    <span class="badge <?= $statusClass[$payment['status']] ?? 'badge-secondary' ?>">
+                                    <span class="badge <?= $badgeClass ?>">
                                         <?= htmlspecialchars($payment['status']) ?>
                                     </span>
                                 </td>

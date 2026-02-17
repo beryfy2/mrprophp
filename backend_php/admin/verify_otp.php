@@ -5,7 +5,7 @@ $error = '';
 $email = isset($_SESSION['reset_email']) ? $_SESSION['reset_email'] : '';
 
 if (!$email) {
-    header('Location: forgot_password.php');
+    header('Location: send_reset_otp.php');
     exit();
 }
 
@@ -21,27 +21,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Password must be at least 6 characters.";
     } else {
         try {
-            // Verify OTP
-            $stmt = $db->prepare("SELECT id FROM admin_config WHERE email = :email AND reset_otp = :otp AND reset_otp_expiry > NOW()");
+            // Verify OTP (expiry checked in PHP to avoid DB timezone issues)
+            $stmt = $db->prepare("SELECT id, reset_otp_expiry FROM admin_config WHERE email = :email AND reset_otp = :otp");
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':otp', $otp);
             $stmt->execute();
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($user) {
-                // Update Password and Clear OTP
-                $hash = password_hash($new_password, PASSWORD_BCRYPT);
-                $update = $db->prepare("UPDATE admin_config SET password_hash = :hash, reset_otp = NULL, reset_otp_expiry = NULL WHERE id = :id");
-                $update->bindParam(':hash', $hash);
-                $update->bindParam(':id', $user['id']);
-                
-                if ($update->execute()) {
-                    unset($_SESSION['reset_email']);
-                    // Optional: auto-login or redirect
-                    echo "<script>alert('Password reset successfully!'); window.location.href='login.php';</script>";
-                    exit();
+                $isExpired = false;
+                if (!empty($user['reset_otp_expiry'])) {
+                    $expiryTime = strtotime($user['reset_otp_expiry']);
+                    if ($expiryTime !== false && $expiryTime < time()) {
+                        $isExpired = true;
+                    }
+                }
+
+                if ($isExpired) {
+                    $error = "Invalid or expired OTP.";
                 } else {
-                    $error = "Failed to update password.";
+                    // Update Password and Clear OTP
+                    $hash = password_hash($new_password, PASSWORD_BCRYPT);
+                    $update = $db->prepare("UPDATE admin_config SET password_hash = :hash, reset_otp = NULL, reset_otp_expiry = NULL WHERE id = :id");
+                    $update->bindParam(':hash', $hash);
+                    $update->bindParam(':id', $user['id']);
+                    
+                    if ($update->execute()) {
+                        unset($_SESSION['reset_email']);
+                        echo "<script>alert('Password reset successfully!'); window.location.href='login.php';</script>";
+                        exit();
+                    } else {
+                        $error = "Failed to update password.";
+                    }
                 }
             } else {
                 $error = "Invalid or expired OTP.";

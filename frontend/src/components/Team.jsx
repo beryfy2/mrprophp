@@ -15,9 +15,24 @@ const Team = () => {
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) {
-          // Filter out employees without photos if you want, or keep all if you handle placeholders
-          const withPhotos = data.filter(e => e.photoUrl);
-          setEmployees(withPhotos.length > 0 ? withPhotos : []); 
+          // Normalise photo field from backend (photo_url or photo)
+          const normalised = data.map(e => {
+            let photo = e.photoUrl || e.photo_url || e.photo || '';
+            if (photo) {
+              if (!/^https?:\/\//.test(photo)) {
+                const path = photo.charAt(0) === '/' ? photo : `/${photo}`;
+                photo = `${IMG_BASE}${path}`;
+              }
+            } else {
+              photo = '';
+            }
+            return { ...e, photoUrl: photo };
+          });
+
+          const withPhotos = normalised.filter(e => e.photoUrl);
+          setEmployees(withPhotos.length > 0 ? withPhotos : []);
+        } else {
+          setEmployees([]);
         }
       })
       .catch(err => console.error('Failed to load team', err));

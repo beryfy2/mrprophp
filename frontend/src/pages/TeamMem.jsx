@@ -32,12 +32,22 @@ export default function TeamMem() {
 
 
   function displayPhoto(emp) {
-  return emp.photo_url
-    ? `${IMG_BASE}/${emp.photo_url}`
-    : `https://i.pravatar.cc/400?u=${encodeURIComponent(
-        emp.email || emp.name
-      )}`;
-}
+    if (emp.photo_url) {
+      // If backend already gives a full URL, use it as-is
+      if (/^https?:\/\//.test(emp.photo_url)) {
+        return emp.photo_url;
+      }
+      // Otherwise, treat it as a relative path on the backend
+      const path =
+        emp.photo_url.charAt(0) === "/" ? emp.photo_url : `/${emp.photo_url}`;
+      return `${IMG_BASE}${path}`;
+    }
+
+    // Fallback avatar only if no photo saved in admin
+    return `https://i.pravatar.cc/400?u=${encodeURIComponent(
+      emp.email || emp.name
+    )}`;
+  }
 
   function displayRole(emp) {
     return emp.designation || emp.position || "";
