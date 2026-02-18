@@ -40,7 +40,7 @@ const Team = () => {
 
   // Use employees for images, or fallback if none loaded yet
   const displayImages = employees.length > 0 
-    ? employees.map(e => `${IMG_BASE}${e.photoUrl}`)
+    ? employees.map(e => e.photoUrl)
     : [
         'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=600&fit=crop',
         'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&h=600&fit=crop',

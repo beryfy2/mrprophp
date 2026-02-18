@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $photoPath = $item ? $item['photo'] : '';
     
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] === 0) {
-        $uploadDir = __DIR__ . '/../../uploads/';
+        $uploadDir = __DIR__ . '/../uploads/';
         if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
         
         $fileName = time() . '_' . basename($_FILES['photo']['name']);
@@ -36,8 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         if (move_uploaded_file($_FILES['photo']['tmp_name'], $targetPath)) {
             // Delete old photo
-            if ($item && $item['photo'] && file_exists(__DIR__ . '/../../' . $item['photo'])) {
-                unlink(__DIR__ . '/../../' . $item['photo']);
+            if ($item && $item['photo'] && file_exists(__DIR__ . '/../' . $item['photo'])) {
+                unlink(__DIR__ . '/../' . $item['photo']);
             }
             $photoPath = 'uploads/' . $fileName;
         }
@@ -114,8 +114,18 @@ $pageTitle = $id ? 'Edit Work' : 'Add New Work';
                         <div class="form-group">
                             <label>Photo</label>
                             <?php if ($item && $item['photo']): ?>
+                                <?php
+                                    $photoSrc = $item['photo'];
+                                    $pos = strpos($photoSrc, 'uploads/');
+                                    if ($pos !== false) {
+                                        $photoSrc = substr($photoSrc, $pos);
+                                    }
+                                    if (strpos($photoSrc, '/') !== 0) {
+                                        $photoSrc = '/' . $photoSrc;
+                                    }
+                                ?>
                                 <div style="margin-bottom: 10px;">
-                                    <img src="<?php echo htmlspecialchars('../../' . $item['photo']); ?>" alt="Current Photo" style="max-width: 150px; border-radius: 4px;">
+                                    <img src="<?php echo htmlspecialchars($photoSrc); ?>" alt="Current Photo" style="max-width: 250px; max-height: 250px; object-fit: contain; border-radius: 4px;">
                                 </div>
                             <?php endif; ?>
                             <input type="file" name="photo" class="form-control" accept="image/*" <?php echo $item ? '' : 'required'; ?>>

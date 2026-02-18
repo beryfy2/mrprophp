@@ -36,6 +36,13 @@ export default function Works() {
       .finally(() => setLoading(false));
   }, []);
 
+  const getImgUrl = (photo) => {
+    if (!photo) return "";
+    if (photo.startsWith("http")) return photo;
+    const path = photo.charAt(0) === "/" ? photo : `/${photo}`;
+    return `${IMG_BASE}${path}`;
+  };
+
   /* ================= PULSE SEQUENCE ================= */
   useEffect(() => {
     const interval = setInterval(() => {
@@ -75,7 +82,7 @@ export default function Works() {
         <div className="work-grid">
           {works.map((work) => (
             <div key={work._id} className="work-card">
-              <img src={`${IMG_BASE}${work.photo}`} alt={work.title} />
+              <img src={getImgUrl(work.photo)} alt={work.title} />
               <div className="work-content">
                 <h3>{work.title}</h3>
                 <p>{work.content.slice(0, 120)}...</p>

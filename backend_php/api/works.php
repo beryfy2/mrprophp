@@ -11,18 +11,28 @@ function getWorks($db) {
     $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
     $baseUrl = $protocol . $_SERVER['HTTP_HOST'];
 
-    // Map id to _id for frontend compatibility if needed
-     $mappedList = array_map(function($item) use ($baseUrl) {
-         $item['_id'] = $item['id'];
-         if (!empty($item['photo']) && strpos($item['photo'], 'http') !== 0) {
-             $photoPath = $item['photo'];
-             if (strpos($photoPath, '/') !== 0) {
-                 $photoPath = '/' . $photoPath;
-             }
-             $item['photo'] = $baseUrl . $photoPath;
-         }
-         return $item;
-     }, $list);
+    // Map id to _id and normalize photo URL
+    $mappedList = array_map(function($item) use ($baseUrl) {
+        $item['_id'] = $item['id'];
+
+        if (!empty($item['photo']) && strpos($item['photo'], 'http') !== 0) {
+            $photoPath = $item['photo'];
+
+            // If path contains "uploads", keep from there
+            $uploadsPos = strpos($photoPath, 'uploads/');
+            if ($uploadsPos !== false) {
+                $photoPath = substr($photoPath, $uploadsPos);
+            }
+
+            if (strpos($photoPath, '/') !== 0) {
+                $photoPath = '/' . $photoPath;
+            }
+
+            $item['photo'] = $baseUrl . $photoPath;
+        }
+
+        return $item;
+    }, $list);
     
     echo json_encode($mappedList);
 }
@@ -42,9 +52,16 @@ function getWorkById($db, $id) {
         
         if (!empty($item['photo']) && strpos($item['photo'], 'http') !== 0) {
             $photoPath = $item['photo'];
+
+            $uploadsPos = strpos($photoPath, 'uploads/');
+            if ($uploadsPos !== false) {
+                $photoPath = substr($photoPath, $uploadsPos);
+            }
+
             if (strpos($photoPath, '/') !== 0) {
                 $photoPath = '/' . $photoPath;
             }
+
             $item['photo'] = $baseUrl . $photoPath;
         }
 
