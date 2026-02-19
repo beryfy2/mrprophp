@@ -12,7 +12,7 @@ library.add(fas, far, fab);
 const NavProfile = ({ hidden = false, transparent = false }) => {
   return (
     <div
-      className="w-full text-(--text-primary) text-[19px] px-6 flex items-center justify-between"
+      className="w-full text-[var(--text-primary)] text-[15px] md:text-[17px] lg:text-[19px] px-6 flex items-center justify-between"
       style={{
         background: transparent ? "transparent" : "var(--bg-secondary)",
         height: "56px",
@@ -26,19 +26,19 @@ const NavProfile = ({ hidden = false, transparent = false }) => {
       <div className="flex items-center gap-8">
         <span className="font-semibold flex items-center gap-2 leading-none">
           <FontAwesomeIcon icon={["fas", "envelope"]} style={{ color: "var(--color-brand)" }} />
-          <span className="cursor-pointer hover:text-(--color-brand-hover)">info@mrprofessional.co.in</span>
+          <span className="cursor-pointer hover:text-[var(--color-brand-hover)]">info@mrprofessional.co.in</span>
         </span>
 
         <span className="font-semibold flex items-center gap-2 leading-none">
           <FontAwesomeIcon icon={["fas", "phone"]} style={{ color: "var(--color-brand)" }} />
-          <span className="cursor-pointer hover:text-(--color-brand-hover)">+918800932090</span>
+          <span className="cursor-pointer hover:text-[var(--color-brand-hover)]">+918800932090</span>
         </span>
       </div>
 
     
 
       {/* Socials media */}
-      <div className="hidden md:flex items-center gap-4 text-[23px]">
+      <div className="hidden md:flex items-center gap-4 text-[20px]">
         <a
           href="https://wa.me/+918800932090"
           target="_blank"
@@ -46,7 +46,7 @@ const NavProfile = ({ hidden = false, transparent = false }) => {
           aria-label="WhatsApp"
         >
           <FontAwesomeIcon
-            className="cursor-pointer hover:text-(--color-brand-hover)"
+            className="cursor-pointer hover:text-[var(--color-brand-hover)]"
             icon={["fab", "whatsapp"]}
           />
         </a>
@@ -82,7 +82,7 @@ const NavProfile = ({ hidden = false, transparent = false }) => {
           aria-label="Twitter / X"
         >
           <FontAwesomeIcon
-            className="cursor-pointer hover:text-(--text-primary)"
+            className="cursor-pointer hover:text-[var(--text-primary)]"
             icon={["fab", "x-twitter"]}
           />
         </a>

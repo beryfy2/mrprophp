@@ -1,8 +1,4 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPhone } from "@fortawesome/free-solid-svg-icons";
-import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
-
 import heroVideo from "../assets/hero-video.mp4";
 import "../style/hero.css";
 
@@ -10,15 +6,16 @@ export default function HeroPage() {
   return (
     <section className="hero-wrapper">
       {/* Background Video */}
-     <video
-  className="hero-video"
-  src={heroVideo}
-  autoPlay
-  muted
-  loop
-/>
+      <video
+        className="hero-video"
+        src={heroVideo}
+        autoPlay
+        muted
+        loop
+        playsInline
+      />
 
-      {/* Overlay */}
+      {/* Dark Overlay */}
       <div className="hero-overlay" />
 
       {/* Content */}
@@ -29,7 +26,7 @@ export default function HeroPage() {
 
         <h1 className="hero-title">
           Bring your vision <br />
-          to life .
+          to life.
         </h1>
 
         <p className="hero-description">
@@ -46,8 +43,6 @@ export default function HeroPage() {
           </a>
         </div>
       </div>
-    
     </section>
   );
 }
-

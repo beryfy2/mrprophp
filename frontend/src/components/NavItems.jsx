@@ -132,12 +132,12 @@ export default function NavItems() {
           ref={navCenterRef}
           className="hidden lg:flex items-center flex-1 justify-center"
         >
-          <ul className="flex items-center gap-10 text-(--text-primary)">
+          <ul className="flex items-center gap-6 md:gap-10 text-[var(--text-primary)]">
             {STATIC_NAV.map(item => (
               <li key={item.label}>
                 <button
                   onClick={() => navigate(item.path)}
-                  className="hover:text-(--color-brand-hover) text-[18px]"
+                  className="hover:text-[var(--color-brand-hover)] text-[15px] md:text-[17px] lg:text-[18px]"
                 >
                   {item.label}
                 </button>
@@ -196,8 +196,8 @@ export default function NavItems() {
         <div className="hidden lg:flex flex-shrink-0 ml-8">
           <Link
             to="/partners-signup"
-            className="px-8 py-2 rounded-full bg-(--color-brand)
-                       text-white text-[19px] font-semibold
+            className="px-6 md:px-8 py-2 rounded-full bg-[var(--color-brand)]
+                       text-white text-[15px] md:text-[17px] lg:text-[19px] font-semibold
                        hover:opacity-90 transition
                        whitespace-nowrap"
           >
@@ -236,7 +236,7 @@ export default function NavItems() {
 
             <Link
               to="/partners-signup"
-              className="block mt-6 text-center py-3 rounded-full bg-(--color-brand)"
+              className="block mt-6 text-center py-3 rounded-full bg-[var(--color-brand)]"
               onClick={() => setMobileOpen(false)}
             >
               Partner With Us
@@ -285,18 +285,18 @@ function DynamicMenu({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <div className="bg-(--bg-secondary) rounded-2xl shadow-2xl border-t-4 border-(--color-brand)">
+      <div className="bg-[var(--bg-secondary)] rounded-2xl shadow-2xl border-t-4 border-[var(--color-brand)]">
         <div className="px-6 py-5 grid grid-cols-2 gap-6">
           <div>
-            <h4 className="text-(--color-brand) font-semibold mb-2">Titles</h4>
+            <h4 className="text-[var(--color-brand)] font-semibold mb-2">Titles</h4>
             {titles.map(t => (
               <button
                 key={t._id}
                 onMouseEnter={() => onHoverTitle(t._id)}
                 className={`block w-full text-left px-3 py-2 rounded-lg ${
                   hoverTitleId === t._id
-                    ? "bg-(--bg-main)"
-                    : "hover:bg-(--bg-main)"
+                    ? "bg-[var(--bg-main)]"
+                    : "hover:bg-[var(--bg-main)]"
                 }`}
               >
                 {t.title}
@@ -305,12 +305,12 @@ function DynamicMenu({
           </div>
 
           <div>
-            <h4 className="text-(--color-brand) font-semibold mb-2">Subtitles</h4>
+            <h4 className="text-[var(--color-brand)] font-semibold mb-2">Subtitles</h4>
             {subtitles.map((s, i) => (
               <button
                 key={s._id}
                 onClick={() => onSelectService(s.title)}
-                className="flex gap-2 text-[19px] hover:text-(--color-brand-hover)"
+                className="flex gap-2 text-[19px] hover:text-[var(--color-brand-hover)]"
               >
                 {s.title}
                 {i < 2 && (

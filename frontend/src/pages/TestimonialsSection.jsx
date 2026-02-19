@@ -7,56 +7,56 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 library.add(fas, fab);
 
 const TESTIMONIALS = [
-  {
-    id: 1,
-    name: "Himanshu Karia",
-    designation: "Director",
-    company: "Autogrid Mobility Pvt Ltd",
-    initials: "H",
-    rating: 5,
-    text:
-      "The people in the organization are highly professional and helped me throughout the work in the best possible manner.",
-  },
-  {
-    id: 2,
-    name: "Lalla Singh",
-    designation: "Director",
-    company: "Arifin India Nidhi Limited",
-    initials: "L",
-    rating: 5,
-    text:
-      "The best consultants I’ve worked with. The approach towards work is highly professional and effective. An energetic team.",
-  },
-  {
-    id: 3,
-    name: "Amit Keshari",
-    designation: "Director",
-    company: "Trueon Lifesciences (OPC) Pvt Ltd",
-    initials: "A",
-    rating: 5,
-    text:
-      "The services from Mr. Professional are best in class. The support they provide throughout the work is best in the segment.",
-  },
-  {
-    id: 4,
-    name: "Deepesh Kurupath",
-    designation: "Founder & CEO",
-    company: "CargoFL (Innovative Technologies Pvt Ltd)",
-    initials: "D",
-    rating: 5,
-    text:
-      "The best in class service provider in the segment. A very cooperative and understanding team which assists and helps to understand all technicalities very effectively.",
-  },
-  {
-    id: 5,
-    name: "Arya Chaurasia",
-    designation: "CEO",
-    company: "Profitance Pvt Ltd",
-    initials: "A",
-    rating: 5,
-    text:
-      "The team work is best as I know this team had done my work well before time. I am glad to work with this organization. The team is so supportive and helpful. The best chartered accountant team you have.",
-  },
+    {
+        id: 1,
+        name: "Himanshu Karia",
+        designation: "Director",
+        company: "Autogrid Mobility Pvt Ltd",
+        initials: "H",
+        rating: 5,
+        text:
+            "The people in the organization are highly professional and helped me throughout the work in the best possible manner.",
+    },
+    {
+        id: 2,
+        name: "Lalla Singh",
+        designation: "Director",
+        company: "Arifin India Nidhi Limited",
+        initials: "L",
+        rating: 5,
+        text:
+            "The best consultants I’ve worked with. The approach towards work is highly professional and effective. An energetic team.",
+    },
+    {
+        id: 3,
+        name: "Amit Keshari",
+        designation: "Director",
+        company: "Trueon Lifesciences (OPC) Pvt Ltd",
+        initials: "A",
+        rating: 5,
+        text:
+            "The services from Mr. Professional are best in class. The support they provide throughout the work is best in the segment.",
+    },
+    {
+        id: 4,
+        name: "Deepesh Kurupath",
+        designation: "Founder & CEO",
+        company: "CargoFL (Innovative Technologies Pvt Ltd)",
+        initials: "D",
+        rating: 5,
+        text:
+            "The best in class service provider in the segment. A very cooperative and understanding team which assists and helps to understand all technicalities very effectively.",
+    },
+    {
+        id: 5,
+        name: "Arya Chaurasia",
+        designation: "CEO",
+        company: "Profitance Pvt Ltd",
+        initials: "A",
+        rating: 5,
+        text:
+            "The team work is best as I know this team had done my work well before time. I am glad to work with this organization. The team is so supportive and helpful. The best chartered accountant team you have.",
+    },
 ];
 
 
@@ -153,14 +153,16 @@ const TestimonialsSection = () => {
                                 <div
                                     key={t.id}
                                     className="bg-(--bg-main) rounded-3xl shadow-lg px-6 py-6 border-b-4 border-b-(--color-brand)
-                                        flex flex-col justify-between min-h-80"
+                                    flex flex-col justify-between h-[400px]"
+
                                 >
                                     <div>
                                         <FontAwesomeIcon
                                             icon={['fas', 'quote-left']}
                                             className="text-(--color-brand) mb-3"
                                         />
-                                        <p className="text-[19px] leading-relaxed text-(--text-secondary)">
+                                        <p className="text-[19px] leading-relaxed text-(--text-secondary)
+                                        max-h-[200px] overflow-y-auto pr-2 custom-scroll">
                                             {t.text}
                                         </p>
                                     </div>

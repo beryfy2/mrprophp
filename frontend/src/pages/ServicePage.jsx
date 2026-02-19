@@ -126,12 +126,12 @@ const StickyConsultationCard = ({ price, title }) => {
       </div>
 
       {notice && (
-        <p className="text-center text-[19px] mt-3">{notice}</p>
+        <p className="text-center text-[15px] md:text-[17px] lg:text-[19px] mt-3">{notice}</p>
       )}
 
       {/* Price */}
       {price && (
-        <p className="text-center text-[19px] text-[var(--text-secondary)] mt-4">
+        <p className="text-center text-[15px] md:text-[17px] lg:text-[19px] text-[var(--text-secondary)] mt-4">
           Starting from <span className="font-semibold">{price}</span>
         </p>
       )}
@@ -288,7 +288,7 @@ const ServicePage = () => {
         {/* LEFT CONTENT */}
         <div>
           {page.updated && (
-            <p className="text-[19px] text-[var(--text-secondary)] mb-4">
+            <p className="text-[15px] md:text-[17px] lg:text-[19px] text-[var(--text-secondary)] mb-4">
               Updated on {page.updated}
             </p>
           )}
@@ -311,7 +311,7 @@ const ServicePage = () => {
             {/* INNER CONTENT */}
             <div className="px-4 py-3">
 
-              <h3 className="font-semibold mb-3 text-[23px] text-center">
+              <h3 className="font-semibold mb-3 text-xl md:text-2xl lg:text-[23px] text-center">
                 {pdfFiles[activePdfIndex]?.customName || "Partnership Deed [Sample]"}
               </h3>
 
@@ -321,7 +321,7 @@ const ServicePage = () => {
                   ["Pvt Ltd", "LLP", "OPC", "Public Ltd", "Section 8"].map((t) => (
                     <button
                       key={t}
-                      className="px-3 py-1 border border-[var(--border-color)] text-[19px]
+                      className="px-3 py-1 border border-[var(--border-color)] text-[15px] md:text-[17px] lg:text-[19px]
                         hover:bg-[var(--color-brand)] hover:text-white transition"
                     >
                       {t}
@@ -339,7 +339,7 @@ const ServicePage = () => {
                       `Document ${idx + 1}`;
                     const isActive = idx === activePdfIndex;
                     const base =
-                      "px-3 py-1 border text-[19px] transition";
+                      "px-3 py-1 border text-[15px] md:text-[17px] lg:text-[19px] transition";
                     const active = "bg-[var(--color-brand)] text-white";
                     const normal = "hover:bg-[var(--color-brand)] hover:text-white";
                     return (
@@ -399,7 +399,7 @@ const ServicePage = () => {
               })()}
 
               {/* OPEN IN NEW TAB */}
-              <div className="mt-3 text-[19px] text-center">
+              <div className="mt-3 text-[15px] md:text-[17px] lg:text-[19px] text-center">
                 <a
                   href={window.currentPdfUrl || "/certificate-sample.pdf"}
                   target="_blank"

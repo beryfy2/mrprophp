@@ -10,9 +10,8 @@
 
   display: flex;
   align-items: center;
-  justify-content: flex-start;   /* 👈 LEFT */
-
-  padding-left: clamp(40px, 8vw, 120px); /* 👈 LEFT OFFSET */
+  justify-content: center;
+  padding: 0 24px;
 }
 
 /* ===============================
@@ -53,20 +52,9 @@
   z-index: 3;
   max-width: 650px;
 
-  padding: 0;          /* 👈 remove internal centering */
-  margin: 0;           /* 👈 remove auto-centering */
-  text-align: left;    /* 👈 LEFT TEXT */
-}
-
-/* FORCE OVERRIDE PARENT CENTERING */
-.hero-wrapper,
-.hero-wrapper * {
-  text-align: left !important;
-}
-
-.hero-content {
-  margin-left: 0 !important;
-  margin-right: auto !important;
+  padding: 0;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .hero-tagline {
@@ -103,7 +91,7 @@
 ================================ */
 .hero-actions {
   display: flex;
-  justify-content: flex-start; /* 👈 LEFT */
+  justify-content: center;
 }
 
 .hero-btn {

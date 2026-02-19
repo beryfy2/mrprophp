@@ -16,7 +16,9 @@
       {
         "ignore": [
           "-webkit-mask",
-          "user-select"
+          "user-select",
+          "-webkit-text-size-adjust",
+          "backdrop-filter"
         ]
       }
     ]

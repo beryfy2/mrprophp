@@ -112,7 +112,7 @@ const Footer = () => {
           </FooterColumn>
 
           {/* CONTACT */}
-          <div className="space-y-4 text-[19px] text-center lg:text-left lg:col-start-4">
+          <div className="space-y-4 text-[15px] md:text-[17px] lg:text-[19px] text-center lg:text-left lg:col-start-4">
 
             <div>
               <p className="text-[var(--color-brand)] font-semibold text-[17px] mb-1">
@@ -194,7 +194,7 @@ const Footer = () => {
             {/* RIGHT — GOOGLE REVIEW CARD */}
             <div className="bg-[var(--bg-main)] rounded-2xl px-6 py-6 border border-[var(--border-color)] flex flex-col gap-4">
 
-              <p className="text-[19px] md:text-[15px] leading-relaxed">
+              <p className="text-[15px] md:text-[17px] lg:text-[19px] leading-relaxed">
                 {activeReview.text}
               </p>
 
@@ -208,7 +208,7 @@ const Footer = () => {
                   className="flex items-center gap-2 hover:opacity-90 transition"
                 >
                   <img src={googleImg} alt="Google Reviews" className="h-8" />
-                  <span className="font-semibold text-[19px]">
+                  <span className="font-semibold text-[15px] md:text-[17px] lg:text-[19px]">
                     4.7 <span className="text-yellow-400">★★★★★</span>
                   </span>
                 </a>
@@ -257,7 +257,7 @@ const FooterColumn = ({ title, children }) => (
 
 const FooterItem = ({ to, children }) => (
   <li>
-    <Link to={to} className="hover:text-[var(--color-brand-hover)] text-[19px]">
+    <Link to={to} className="hover:text-[var(--color-brand-hover)] text-[15px] md:text-[17px] lg:text-[19px]">
       {children}
     </Link>
   </li>
