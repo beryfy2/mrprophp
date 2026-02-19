@@ -1,54 +1,43 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
 
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { far } from "@fortawesome/free-regular-svg-icons";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import SearchBar from "./SearchBar";
-
-library.add(fas, far, fab);
-
-const NavProfile = ({ hidden = false, transparent = false }) => {
+const NavProfile = ({ hidden = false }) => {
   return (
     <div
-      className="w-full text-[var(--text-primary)] text-[15px] md:text-[17px] lg:text-[19px] px-6 flex items-center justify-between"
+      className="w-full px-8 text-[14px] flex items-center justify-between"
       style={{
-        background: transparent ? "transparent" : "var(--bg-secondary)",
-        height: "56px",
+        background: "var(--bg-secondary)",
+        height: "48px",
         transform: hidden ? "translateY(-100%)" : "translateY(0)",
-        transition: "transform 300ms ease, background-color 300ms ease",
+        transition: "all 300ms ease",
+        borderBottom: "1px solid rgba(255,255,255,0.08)",
         zIndex: 1200,
-        backdropFilter: transparent ? "saturate(180%) blur(6px)" : "none",
       }}
     >
-      {/* Contact Details */}
-      <div className="flex items-center gap-8">
-        <span className="font-semibold flex items-center gap-2 leading-none">
-          <FontAwesomeIcon icon={["fas", "envelope"]} style={{ color: "var(--color-brand)" }} />
-          <span className="cursor-pointer hover:text-[var(--color-brand-hover)]">info@mrprofessional.co.in</span>
+      {/* Contact */}
+      <div className="flex items-center gap-8 font-medium text-[var(--text-secondary)]">
+        <span className="flex items-center gap-2 hover:text-[var(--color-brand)] transition">
+          <FontAwesomeIcon icon={["fas", "envelope"]} />
+          info@mrprofessional.co.in
         </span>
 
-        <span className="font-semibold flex items-center gap-2 leading-none">
-          <FontAwesomeIcon icon={["fas", "phone"]} style={{ color: "var(--color-brand)" }} />
-          <span className="cursor-pointer hover:text-[var(--color-brand-hover)]">+918800932090</span>
+        <span className="flex items-center gap-2 hover:text-[var(--color-brand)] transition">
+          <FontAwesomeIcon icon={["fas", "phone"]} />
+          +91 88009 32090
         </span>
       </div>
 
-    
 
       {/* Socials media */}
-      <div className="hidden md:flex items-center gap-4 text-[20px]">
+      <div className="hidden md:flex items-center gap-5 text-[18px] text-[var(--text-secondary)]">
         <a
           href="https://wa.me/+918800932090"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="WhatsApp"
+          className="hover:text-green-400 transition-colors"
         >
-          <FontAwesomeIcon
-            className="cursor-pointer hover:text-[var(--color-brand-hover)]"
-            icon={["fab", "whatsapp"]}
-          />
+          <FontAwesomeIcon icon={["fab", "whatsapp"]} />
         </a>
 
         <a
@@ -56,11 +45,9 @@ const NavProfile = ({ hidden = false, transparent = false }) => {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Facebook"
+          className="hover:text-blue-500 transition-colors"
         >
-          <FontAwesomeIcon
-            className="cursor-pointer hover:text-blue-500"
-            icon={["fab", "facebook-f"]}
-          />
+          <FontAwesomeIcon icon={["fab", "facebook-f"]} />
         </a>
 
         <a
@@ -68,11 +55,9 @@ const NavProfile = ({ hidden = false, transparent = false }) => {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Instagram"
+          className="hover:text-pink-400 transition-colors"
         >
-          <FontAwesomeIcon
-            className="cursor-pointer hover:text-pink-400"
-            icon={["fab", "instagram"]}
-          />
+          <FontAwesomeIcon icon={["fab", "instagram"]} />
         </a>
 
         <a
@@ -80,11 +65,9 @@ const NavProfile = ({ hidden = false, transparent = false }) => {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Twitter / X"
+          className="hover:text-white transition-colors"
         >
-          <FontAwesomeIcon
-            className="cursor-pointer hover:text-[var(--text-primary)]"
-            icon={["fab", "x-twitter"]}
-          />
+          <FontAwesomeIcon icon={["fab", "x-twitter"]} />
         </a>
 
         <a
@@ -92,16 +75,14 @@ const NavProfile = ({ hidden = false, transparent = false }) => {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn"
+          className="hover:text-blue-400 transition-colors"
         >
-          <FontAwesomeIcon
-            className="cursor-pointer hover:text-blue-300"
-            icon={["fab", "linkedin-in"]}
-          />
+          <FontAwesomeIcon icon={["fab", "linkedin-in"]} />
         </a>
       </div>
+
     </div>
   );
 };
 
 export default NavProfile;
-

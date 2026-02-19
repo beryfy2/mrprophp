@@ -7,7 +7,7 @@ const NAVBAR_HEIGHT = 72;
 
 const NavBar = () => {
     const { hideUpper, lowerSticky } = useScrollState({
-        lowerStickyThreshold: 260,
+        lowerStickyThreshold: 220,
     });
 
     const isMobile = window.innerWidth <= 640;
@@ -22,15 +22,11 @@ const NavBar = () => {
             <div
                 className={`w-full transition-all duration-300
         ${sticky
-                        ? "fixed top-0 left-0 right-0 z-[1100]"
-                        : "absolute top-14 left-0 right-0 z-[400]"
+                        ? "fixed top-0 left-0 right-0 z-[1100] shadow-md"
+                        : "relative z-[400]"
                     }`}
             >
-                <NavItems
-                    sticky={sticky}
-                    mobileOpen={mobileOpen}
-                    setMobileOpen={setMobileOpen}
-                />
+                <NavItems mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
             </div>
 
             {sticky && <div style={{ height: NAVBAR_HEIGHT }} />}
@@ -39,4 +35,3 @@ const NavBar = () => {
 };
 
 export default NavBar;
-
